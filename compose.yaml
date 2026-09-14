@@ -1,0 +1,22 @@
+services:
+  quiz-platform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: quiz-platform:latest
+    container_name: quiz-platform
+    networks:
+      - proxy
+    restart: unless-stopped
+    expose:
+      - "8080"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.quiz-platform.rule=Host(`${QUIZ_HOSTNAME?Set QUIZ_HOSTNAME in .env}`)"
+      - "traefik.http.routers.quiz-platform.entrypoints=websecure"
+      - "traefik.http.routers.quiz-platform.tls.certresolver=letsencrypt"
+      - "traefik.http.services.quiz-platform.loadbalancer.server.port=8080"
+
+networks:
+  proxy:
+    external: true

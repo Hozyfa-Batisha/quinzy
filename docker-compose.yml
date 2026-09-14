@@ -1,9 +1,0 @@
-services:
-  quizny:
-    build: .
-    container_name: quizny
-    restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.quizny.rule=Host(`quizny.yourdomain.com`)"
-      - "traefik.http.services.quizny.loadbalancer.server.port=80"

@@ -1,14 +1,11 @@
-# Build the content
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+# The application is a static HTML/CSS/JavaScript site. No Node runtime is
+# needed in production because the generated lesson data is committed to the
+# image.
+FROM nginx:1.27-alpine
 
-FROM nginx:alpine
-COPY --from=builder /app/index.html /usr/share/nginx/html/
-COPY --from=builder /app/assets /usr/share/nginx/html/assets
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY index.html /usr/share/nginx/html/index.html
+COPY assets /usr/share/nginx/html/assets
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 8080
+
