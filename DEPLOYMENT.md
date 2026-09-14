@@ -1,6 +1,6 @@
 # Deploying with Docker Compose and Traefik
 
-This project is a static quiz site. Docker serves it with Nginx on the internal
+Quinzy is a static student self-assessment site. Docker serves it with Nginx on the internal
 `proxy` network; Traefik terminates HTTPS and routes the public hostname to it.
 No host port is published by this application.
 
@@ -15,7 +15,7 @@ No host port is published by this application.
 ## Deployment sequence
 
 1. In your DNS provider, create an `A` record for the chosen hostname (for
-   example, `quiz.example.com`) pointing to the server's public IPv4 address.
+   example, `quinzy.example.com`) pointing to the server's public IPv4 address.
    If the server has public IPv6, add a matching `AAAA` record. Wait until the
    record resolves publicly before starting the app; Let's Encrypt needs to
    reach the hostname.
@@ -29,10 +29,10 @@ No host port is published by this application.
 3. Copy the project to the server, then create the deployment environment file:
 
    ```bash
-   cp .env.example .env
+   cp env.example .env
    ```
 
-   Set `QUIZ_HOSTNAME` in `.env` to the exact DNS hostname. Do not include
+   Set `QUINZY_HOSTNAME` in `.env` to the exact DNS hostname. Do not include
    `https://`, a path, or a trailing slash.
 4. Build the lesson data if you changed the Markdown sources, then start the
    service:
@@ -46,7 +46,7 @@ No host port is published by this application.
 
    ```bash
    docker compose ps
-   docker compose logs -f quiz-platform
+   docker compose logs -f quinzy
    ```
 
    Open `https://<your hostname>` after Traefik has issued the certificate.

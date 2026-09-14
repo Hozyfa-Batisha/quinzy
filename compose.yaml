@@ -1,10 +1,12 @@
+name: quinzy
+
 services:
-  quiz-platform:
+  quinzy:
     build:
       context: .
       dockerfile: Dockerfile
-    image: quiz-platform:latest
-    container_name: quiz-platform
+    image: quinzy:latest
+    container_name: quinzy
     networks:
       - proxy
     restart: unless-stopped
@@ -12,10 +14,10 @@ services:
       - "8080"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.quiz-platform.rule=Host(`${QUIZ_HOSTNAME?Set QUIZ_HOSTNAME in .env}`)"
-      - "traefik.http.routers.quiz-platform.entrypoints=websecure"
-      - "traefik.http.routers.quiz-platform.tls.certresolver=letsencrypt"
-      - "traefik.http.services.quiz-platform.loadbalancer.server.port=8080"
+      - "traefik.http.routers.quinzy.rule=Host(`${QUINZY_HOSTNAME?Set QUINZY_HOSTNAME in .env}`)"
+      - "traefik.http.routers.quinzy.entrypoints=websecure"
+      - "traefik.http.routers.quinzy.tls.certresolver=letsencrypt"
+      - "traefik.http.services.quinzy.loadbalancer.server.port=8080"
 
 networks:
   proxy:

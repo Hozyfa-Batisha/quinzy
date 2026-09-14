@@ -1,6 +1,6 @@
-# 🛠️ Quiz Platform - Technical Documentation
+# 🛠️ Quinzy - Technical Documentation
 
-This document explains the technical architecture, data flow, and components of the Quiz Platform project.
+This document explains the technical architecture, data flow, and components of Quinzy, a student self-assessment learning tool.
 
 ---
 
@@ -16,7 +16,7 @@ The project is built as a **Vanilla JavaScript Single Page Application (SPA)**. 
 ## 2. Directory Structure
 
 ```text
-Quiz Platform/
+Quinzy/
 ├── index.html                   # Main entry point (Arabic RTL layout)
 ├── lessons.config.json          # Configuration mapping lessons to their source MD files
 ├── package.json                 # Defines npm scripts (e.g., build, serve)
