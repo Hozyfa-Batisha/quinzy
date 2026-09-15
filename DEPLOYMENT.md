@@ -34,11 +34,10 @@ No host port is published by this application.
 
    Set `QUINZY_HOSTNAME` in `.env` to the exact DNS hostname. Do not include
    `https://`, a path, or a trailing slash.
-4. Build the lesson data if you changed the Markdown sources, then start the
-   service:
+4. Start the service. The Docker build generates the lesson data from the
+   Markdown sources, so Node.js is not required on the server:
 
    ```bash
-   npm run build
    docker compose up -d --build
    ```
 
@@ -53,12 +52,74 @@ No host port is published by this application.
 
 ## Updates
 
-After changing content or site files, rebuild and replace the container:
+After changing content or site files, pull the latest Git commit and rebuild the
+container:
 
 ```bash
-npm run build
+git pull --ff-only origin main
 docker compose up -d --build
 ```
 
 The service remains internal to Docker. If it is unreachable, inspect the
 Traefik logs and verify that Traefik is attached to the same `proxy` network.
+
+## Automated updates after push
+
+The clean flow is:
+
+```text
+local edit -> git commit -> git push -> GitHub Action SSHs to server -> server pulls and rebuilds
+```
+
+### 1. Prepare the server clone
+
+Clone the repository into a stable path, for example:
+
+```bash
+sudo mkdir -p /opt/quinzy
+sudo chown "$USER":"$USER" /opt/quinzy
+git clone git@github.com:Hozyfa-Batisha/quizny.git /opt/quinzy
+cd /opt/quinzy
+cp env.example .env
+```
+
+If the repository is private, add a GitHub deploy key or a server SSH key with
+repository access before running `git clone`.
+
+Edit `.env` and set `QUINZY_HOSTNAME` to your real domain.
+
+Run the first deployment manually:
+
+```bash
+sh scripts/deploy-server.sh
+```
+
+### 2. Add GitHub repository secrets
+
+In GitHub, open the repository, then go to Settings -> Secrets and variables ->
+Actions -> New repository secret.
+
+Add these secrets:
+
+- `SERVER_HOST`: your server IP address or SSH hostname.
+- `SERVER_USER`: the Linux user that owns `/opt/quinzy`.
+- `SERVER_SSH_KEY`: a private SSH key that can log in to the server.
+- `SERVER_SSH_PORT`: optional, only needed if SSH is not on port `22`.
+- `SERVER_APP_DIR`: optional, only needed if the app is not in `/opt/quinzy`.
+
+### 3. Push to deploy
+
+From your computer:
+
+```bash
+git add .
+git commit -m "Update Quinzy"
+git push origin main
+```
+
+Every push to `main` will run `.github/workflows/deploy.yml`. The workflow logs
+will show the SSH connection, `git pull`, Docker rebuild, and container status.
+
+The server-side script refuses to deploy if the server clone has uncommitted
+changes. This keeps the server as a deployment target only; all edits should be
+made locally and pushed through Git.

@@ -1,7 +1,6 @@
 .git
 .agents
 .codex
-Sources
 TECHNICAL_DOCS.md
 DEPLOYMENT.md
 compose-example.txt
