@@ -25,5 +25,14 @@
     "description": "مفاهيم الذكاء الاصطناعي، تعلم الآلة، الشبكات العصبية، والتحديات الأخلاقية.",
     "summaryFile": "Done/How AI Works/how-ai-works-summary.md",
     "questionsFile": "Done/How AI Works/how-ai-works-questions.md"
+  },
+  {
+    "id": "ai-daily-life",
+    "order": 4,
+    "titleAr": "الذكاء الاصطناعي في الحياة اليومية",
+    "titleEn": "AI Daily Life",
+    "description": "تطبيقات الذكاء الاصطناعي في الخدمات اليومية والصناعة، مع التركيز على الخصوصية والتحيز والإشراف البشري.",
+    "summaryFile": "Done/AI In Daily Live/ai-daily-life-summary.md",
+    "questionsFile": "Done/AI In Daily Live/ai-daily-life-questions.md"
   }
 ]
