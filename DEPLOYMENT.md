@@ -79,7 +79,7 @@ Clone the repository into a stable path, for example:
 ```bash
 sudo mkdir -p /opt/quinzy
 sudo chown "$USER":"$USER" /opt/quinzy
-git clone git@github.com:Hozyfa-Batisha/quizny.git /opt/quinzy
+git clone git@github.com:Hozyfa-Batisha/quinzy.git /opt/quinzy
 cd /opt/quinzy
 cp env.example .env
 ```
