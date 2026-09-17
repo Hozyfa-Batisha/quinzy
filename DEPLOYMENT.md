@@ -1,7 +1,7 @@
 # Deploying with Docker Compose and Traefik
 
-Quinzy is a static student self-assessment site. Docker serves it with Nginx on the internal
-`proxy` network; Traefik terminates HTTPS and routes the public hostname to it.
+Quinzy is a full-stack student self-assessment site with a Node.js API and an Nginx frontend. Docker serves both services on the internal
+`proxy` and `internal` networks; Traefik terminates HTTPS and routes the public hostname to the Nginx frontend.
 No host port is published by this application.
 
 ## Prerequisites
@@ -34,6 +34,7 @@ No host port is published by this application.
 
    Set `QUINZY_HOSTNAME` in `.env` to the exact DNS hostname. Do not include
    `https://`, a path, or a trailing slash.
+   You must also set `GOOGLE_CLIENT_ID` for Google Authentication, and `JWT_SECRET` for secure sessions.
 4. Start the service. The Docker build generates the lesson data from the
    Markdown sources, so Node.js is not required on the server:
 
@@ -86,7 +87,7 @@ cp env.example .env
 If the repository is private, add a GitHub deploy key or a server SSH key with
 repository access before running `git clone`.
 
-Edit `.env` and set `QUINZY_HOSTNAME` to your real domain.
+Edit `.env` and set `QUINZY_HOSTNAME` to your real domain. Also configure `GOOGLE_CLIENT_ID` and `JWT_SECRET`.
 
 Run the first deployment manually:
 
