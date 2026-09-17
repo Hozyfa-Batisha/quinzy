@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 const SOURCES = path.join(ROOT, 'Sources');
-const OUTPUT = path.join(ROOT, 'assets', 'js', 'data', 'lessons.js');
+const OUTPUT = path.join(ROOT, 'public', 'assets', 'js', 'data', 'lessons.js');
 const CONFIG = path.join(ROOT, 'lessons.config.json');
 
 function escapeHtml(text) {

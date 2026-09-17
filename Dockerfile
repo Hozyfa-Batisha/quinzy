@@ -2,17 +2,19 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
-COPY package.json lessons.config.json ./
+COPY package*.json lessons.config.json vite.config.js ./
 COPY scripts ./scripts
 COPY Sources ./Sources
-COPY assets ./assets
+COPY public ./public
+COPY src ./src
+COPY *.html ./
 
+RUN npm install
 RUN npm run build
 
 FROM nginx:1.27-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY index.html /usr/share/nginx/html/index.html
-COPY --from=build /app/assets /usr/share/nginx/html/assets
+COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 8080

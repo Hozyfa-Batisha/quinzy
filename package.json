@@ -4,7 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build-content.mjs",
-    "serve": "npx --yes serve . -l 3000"
+    "dev": "vite",
+    "build:content": "node scripts/build-content.mjs",
+    "build": "npm run build:content && vite build",
+    "preview": "vite preview",
+    "serve": "npx --yes serve dist -l 3000"
+  },
+  "devDependencies": {
+    "vite": "^8.3.0",
+    "vite-plugin-handlebars": "^2.0.3"
   }
 }
