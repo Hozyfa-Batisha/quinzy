@@ -8,7 +8,6 @@ COPY Sources ./Sources
 COPY assets ./assets
 
 RUN npm run build
-RUN npm run serve
 
 FROM nginx:1.27-alpine
 
