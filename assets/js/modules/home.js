@@ -48,7 +48,7 @@ const HomeView = {
         (lesson, i) => `
       <article class="lesson-card" data-lesson-id="${lesson.id}" style="animation-delay: ${(startIndex + i) * 0.07}s">
         <div class="lesson-card-header">
-          <span class="lesson-order">الدرس ${lesson.order}</span>
+          <span class="lesson-order">الدرس ${i + 1}</span>
           <div class="lesson-icon" aria-hidden="true">${getLessonIcon(lesson.titleAr + lesson.titleEn)}</div>
         </div>
         <h3>${lesson.titleAr}</h3>

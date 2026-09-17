@@ -53,9 +53,9 @@
   font-weight: 700;
   letter-spacing: 0.03em;
   padding: 4px 12px;
-  border-radius: 100px;
+  border-radius: var(--radius-full);
   margin-bottom: 16px;
-  font-family: var(--font-latin);
+  font-family: var(--font-display-ar);
 }
 
 .type-mcq { background: var(--color-primary-soft); color: var(--color-primary); }
@@ -64,10 +64,11 @@
 .type-open { background: var(--color-success-bg); color: var(--color-success); }
 
 .question-text {
-  font-size: 1.02rem;
+  font-size: 1.05rem;
   font-weight: 600;
+  font-family: var(--font-body-ar);
   color: var(--color-text);
-  line-height: 1.65;
+  line-height: 1.9;
   margin-bottom: 24px;
 }
 
@@ -151,8 +152,9 @@
 }
 
 .option-label {
-  font-size: 0.92rem;
-  line-height: 1.55;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  font-family: var(--font-body-ar);
   color: var(--color-text-secondary);
   padding-top: 4px;
 }
@@ -293,9 +295,10 @@
 }
 
 .model-answer-text {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-family: var(--font-body-ar);
   color: var(--color-text-secondary);
-  line-height: 1.7;
+  line-height: 1.9;
 }
 
 .feedback {
@@ -368,6 +371,7 @@
 .results-modal h2 {
   font-size: 1.4rem;
   font-weight: 700;
+  font-family: var(--font-display-ar);
   color: var(--color-primary);
   margin-bottom: 16px;
 }

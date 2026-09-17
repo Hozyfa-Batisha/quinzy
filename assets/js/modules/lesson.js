@@ -9,6 +9,7 @@ const LessonView = {
     document.getElementById('home-view').classList.add('hidden');
     document.getElementById('lesson-view').classList.remove('hidden');
     document.querySelector('.site-footer')?.classList.add('hidden');
+    document.getElementById('site-header')?.classList.add('hidden');
 
     document.getElementById('viewer-lesson-title').textContent = lesson.titleAr;
     document.getElementById('viewer-breadcrumb-lesson').textContent = lesson.titleAr;
@@ -24,6 +25,7 @@ const LessonView = {
     document.getElementById('lesson-view').classList.add('hidden');
     document.getElementById('home-view').classList.remove('hidden');
     document.querySelector('.site-footer')?.classList.remove('hidden');
+    document.getElementById('site-header')?.classList.remove('hidden');
     this.currentLesson = null;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   },
@@ -83,6 +85,11 @@ const LessonView = {
 
     container.innerHTML = html;
     document.getElementById('start-lesson-test')?.addEventListener('click', () => {
+      if (!window.Auth?.currentUser) {
+        alert('يجب تسجيل الدخول أولاً لإجراء الاختبار وحفظ نتيجتك.');
+        window.Auth?.triggerGoogleLogin();
+        return;
+      }
       this.setTab('quiz');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });

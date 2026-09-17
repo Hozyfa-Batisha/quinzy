@@ -23,6 +23,12 @@ const ResultsView = {
     else if (percent >= 50) messageEl.textContent = 'أداء مقبول — ننصح بمراجعة الملخص ثم إعادة الاختبار.';
     else messageEl.textContent = 'تحتاج إلى مراجعة أوسع — اقرأ الملخص بعناية ثم حاول مجدداً.';
 
+    // Save progress if logged in
+    if (window.Auth?.currentUser) {
+      window.API.saveProgress(quiz.lesson.id, score, gradable, percent >= 50)
+        .catch(err => console.error('Failed to save progress:', err));
+    }
+
     document.getElementById('breakdown-correct').textContent = score;
     document.getElementById('breakdown-wrong').textContent = wrong;
     document.getElementById('breakdown-open').textContent = openCount;

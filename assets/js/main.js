@@ -90,5 +90,8 @@ const App = {
 
 window.App = App;
 
-document.addEventListener('DOMContentLoaded', () => App.init());
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+  ScrollReveal.init();
+});
 
