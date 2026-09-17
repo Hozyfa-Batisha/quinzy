@@ -75,7 +75,17 @@ const LessonView = {
       `;
     }
 
+    html += `
+      <div class="summary-test-action">
+        <button class="btn btn-primary" type="button" id="start-lesson-test">ابدأ الاختبار</button>
+      </div>
+    `;
+
     container.innerHTML = html;
+    document.getElementById('start-lesson-test')?.addEventListener('click', () => {
+      this.setTab('quiz');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   },
 };
 

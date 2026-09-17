@@ -328,6 +328,12 @@
   font-size: 0.85rem;
 }
 
+.feedback-answer {
+  margin-top: 6px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
 .quiz-controls {
   display: flex;
   justify-content: space-between;

@@ -248,7 +248,72 @@ function parseExerciseBlock(block) {
   };
 }
 
+function getMarkdownSection(markdown, headingPattern) {
+  const heading = new RegExp(`^##[^\\n]*${headingPattern}[^\\n]*\\n([\\s\\S]*?)(?=^##\\s|(?![\\s\\S]))`, 'm');
+  return markdown.match(heading)?.[1] ?? '';
+}
+
+// كتاب الفائز uses numbered questions, bracketed choices, and a separate answer key.
+function parseAlfaezQuestionsMarkdown(markdown) {
+  const questions = [];
+  const mcqSection = getMarkdownSection(markdown, '(?:MCQ|اختر الإجابة)');
+  const answersSection = getMarkdownSection(markdown, 'نموذج الإجابة');
+  const mcqAnswers = new Map(
+    [...answersSection.matchAll(/^\s*(\d+)\.\s*\*\*\[([أ-ي])\]\*\*/gm)].map((match) => [Number(match[1]), match[2]])
+  );
+
+  const mcqPattern = /^\s*(\d+)\.\s*\*\*(.+?)\*\*\s*\n((?:\s*-\s+\[[أ-ي]\]\s*.+(?:\n|$))+)/gm;
+  for (const match of mcqSection.matchAll(mcqPattern)) {
+    const number = Number(match[1]);
+    const options = [...match[3].matchAll(/^\s*-\s+\[([أ-ي])\]\s*(.+)$/gm)].map((option) => ({
+      key: option[1],
+      text: option[2].trim(),
+    }));
+    const correct = mcqAnswers.get(number);
+    if (options.length && correct) {
+      questions.push({ type: 'mcq', question: match[2].trim(), options, correct });
+    }
+  }
+
+  const trueFalseSection = getMarkdownSection(markdown, 'الصحيحة وعلامة');
+  const trueFalseAnswers = new Map(
+    [...answersSection.matchAll(/^\s*(\d+)\.\s*\(\s*([✔❌])\s*\)\s*(.+)$/gm)].map((match) => [
+      Number(match[1]),
+      { correct: match[2] === '✔', explanation: match[3].replace(/^(?:صواب\.?|خطأ\s*-\s*)\s*/, '').trim() },
+    ])
+  );
+  for (const match of trueFalseSection.matchAll(/^\s*(\d+)\.\s*\(\s*\)\s*(.+)$/gm)) {
+    const answer = trueFalseAnswers.get(Number(match[1]));
+    if (answer) questions.push({ type: 'truefalse', question: match[2].trim(), ...answer });
+  }
+
+  const completionSection = getMarkdownSection(markdown, 'أكمل العبارات');
+  const completionAnswers = answersSection.match(/###\s*إجابة السؤال الثالث[^\n]*\n([\s\S]*)$/m)?.[1] ?? '';
+  const completionAnswerMap = new Map(
+    [...completionAnswers.matchAll(/^\s*(\d+)\.\s*(.+)$/gm)].map((match) => [Number(match[1]), match[2].trim()])
+  );
+  for (const match of completionSection.matchAll(/^\s*(\d+)\.\s*(.+)$/gm)) {
+    questions.push({
+      type: 'open',
+      question: match[2].trim(),
+      modelAnswer: completionAnswerMap.get(Number(match[1])) ?? '',
+    });
+  }
+
+  const exercises = [];
+  const exerciseSection = getMarkdownSection(markdown, 'مسائل تحويلات');
+  for (const match of exerciseSection.matchAll(/^###\s*(تمرين\s*\d+[^\n]*)\n([\s\S]*?)(?=^###\s|(?![\s\S]))/gm)) {
+    exercises.push({ type: 'exercise', title: match[1].trim(), content: markdownToHtml(match[2].trim()) });
+  }
+
+  return { questions, exercises };
+}
+
 function parseQuestionsMarkdown(markdown) {
+  if (markdown.includes('كتاب الفائز')) {
+    return parseAlfaezQuestionsMarkdown(markdown);
+  }
+
   const questions = [];
   const sections = markdown.split(/^##\s/m).slice(1);
 
@@ -300,7 +365,7 @@ function parseQuestionsMarkdown(markdown) {
     }
   }
 
-  return questions;
+  return { questions, exercises: questions.filter((q) => q.type === 'exercise') };
 }
 
 function build() {
@@ -316,10 +381,13 @@ function build() {
 
       const summaryHtml = markdownToHtml(summaryMd);
       const { objectives, body } = extractObjectives(summaryHtml);
-      const questions = parseQuestionsMarkdown(questionsMd);
+      const parsedQuestions = parseQuestionsMarkdown(questionsMd);
+      const questions = parsedQuestions.questions;
 
       const quizQuestions = questions.filter((q) => q.type !== 'exercise');
-      const exercises = questions.filter((q) => q.type === 'exercise');
+      const exercises = parsedQuestions.exercises.length
+        ? parsedQuestions.exercises
+        : questions.filter((q) => q.type === 'exercise');
 
       return {
         id: lesson.id,

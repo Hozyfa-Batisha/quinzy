@@ -6,7 +6,7 @@
     "titleEn": "IT Evolution & Social Transformation",
     "description": "تتبع المراحل التاريخية، قانون مور، التغيرات الاجتماعية، والتقنيات الناشئة.",
     "summaryFile": "Done/IT Evolution/it-evolution-summary.md",
-    "questionsFile": "Done/IT Evolution/it-evolution-questions.md"
+    "questionsFile": "In Queue/alfaez-it-evolution-questions.md"
   },
   {
     "id": "numbering-systems",
@@ -15,7 +15,7 @@
     "titleEn": "Digital Numbering Systems",
     "description": "الأنظمة العشري والثنائي والثماني والست عشري، وعمليات التحويل بينها.",
     "summaryFile": "Done/Numbring Systems/numbering-systems-summary.md",
-    "questionsFile": "Done/Numbring Systems/numbering-systems-questions.md"
+    "questionsFile": "In Queue/alfaez-numbering-systems-questions.md"
   },
   {
     "id": "how-ai-works",
@@ -24,7 +24,7 @@
     "titleEn": "How AI Works",
     "description": "مفاهيم الذكاء الاصطناعي، تعلم الآلة، الشبكات العصبية، والتحديات الأخلاقية.",
     "summaryFile": "Done/How AI Works/how-ai-works-summary.md",
-    "questionsFile": "Done/How AI Works/how-ai-works-questions.md"
+    "questionsFile": "In Queue/alfaez-how-ai-works-questions.md"
   },
   {
     "id": "ai-daily-life",

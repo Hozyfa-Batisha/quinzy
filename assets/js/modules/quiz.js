@@ -46,7 +46,9 @@ const QuizEngine = {
 
     if (current) {
       this.attachQuestionHandlers(current, this.currentIndex);
-      if (this.reviewed) this.showReviewState(current, this.currentIndex);
+      if (this.isAnswerFinal(current, this.currentIndex) || this.reviewed) {
+        this.showAnswerState(current, this.currentIndex);
+      }
     }
 
     document.getElementById('quiz-prev').disabled = this.currentIndex === 0;
@@ -154,10 +156,11 @@ const QuizEngine = {
         card.querySelectorAll('.option-item').forEach((item) => {
           if (saved === item.dataset.key) item.classList.add('selected');
           item.onclick = () => {
-            if (this.reviewed) return;
+            if (this.reviewed || this.isAnswerFinal(q, index)) return;
             card.querySelectorAll('.option-item').forEach((el) => el.classList.remove('selected'));
             item.classList.add('selected');
             this.answers[index] = item.dataset.key;
+            this.answerQuestion(q, index);
           };
         });
         break;
@@ -167,10 +170,11 @@ const QuizEngine = {
           const val = btn.dataset.value === 'true';
           if (saved === val) btn.classList.add('selected');
           btn.onclick = () => {
-            if (this.reviewed) return;
+            if (this.reviewed || this.isAnswerFinal(q, index)) return;
             card.querySelectorAll('.tf-btn').forEach((el) => el.classList.remove('selected'));
             btn.classList.add('selected');
             this.answers[index] = val;
+            this.answerQuestion(q, index);
           };
         });
         break;
@@ -180,19 +184,26 @@ const QuizEngine = {
           const i = Number(select.dataset.index);
           if (saved && saved[i]) select.value = saved[i];
           select.onchange = () => {
-            if (this.reviewed) return;
+            if (this.reviewed || this.isAnswerFinal(q, index)) return;
             if (!this.answers[index]) this.answers[index] = {};
             this.answers[index][i] = select.value;
+            if (this.isAnswerFinal(q, index)) this.answerQuestion(q, index);
           };
         });
         break;
 
       case 'open':
         const textarea = card.querySelector('.open-input');
-        if (saved) textarea.value = saved;
+        if (saved) {
+          textarea.value = saved;
+          card.querySelector('.model-answer')?.classList.add('show');
+        }
         textarea.oninput = () => {
           if (this.reviewed) return;
           this.answers[index] = textarea.value;
+        };
+        textarea.onblur = () => {
+          if (textarea.value.trim()) card.querySelector('.model-answer')?.classList.add('show');
         };
         break;
     }
@@ -210,6 +221,35 @@ const QuizEngine = {
       default:
         return null;
     }
+  },
+
+  isAnswerFinal(q, index) {
+    const answer = this.answers[index];
+    if (q.type === 'mcq' || q.type === 'truefalse') {
+      return Object.prototype.hasOwnProperty.call(this.answers, index);
+    }
+    if (q.type === 'matching') {
+      return Boolean(answer) && q.leftItems.every((_, i) => answer[i]);
+    }
+    return false;
+  },
+
+  answerQuestion(q, index) {
+    this.score = this.calculateScore();
+    document.getElementById('quiz-score-value').textContent = this.score;
+    this.showAnswerState(q, index);
+  },
+
+  correctAnswerText(q) {
+    if (q.type === 'mcq') {
+      const option = q.options.find((item) => item.key === q.correct);
+      return `الإجابة الصحيحة: ${q.correct} — ${option?.text ?? ''}`;
+    }
+    if (q.type === 'truefalse') return `الإجابة الصحيحة: ${q.correct ? 'صح' : 'خطأ'}`;
+    if (q.type === 'matching') {
+      return q.leftItems.map((item, i) => `${i + 1}. ${item} ← ${q.correctMap[i]}`).join('<br>');
+    }
+    return '';
   },
 
   goPrev() {
@@ -242,7 +282,7 @@ const QuizEngine = {
     ResultsView.show(this);
   },
 
-  showReviewState(q, index) {
+  showAnswerState(q, index) {
     const card = document.querySelector(`.question-card[data-index="${index}"]`);
     if (!card) return;
 
@@ -284,9 +324,9 @@ const QuizEngine = {
     if (feedback) {
       feedback.classList.add('show', correct ? 'correct' : 'wrong');
       if (correct) {
-        feedback.textContent = 'إجابة صحيحة';
+        feedback.innerHTML = `إجابة صحيحة<div class="feedback-answer">${this.correctAnswerText(q)}</div>`;
       } else {
-        feedback.innerHTML = `إجابة غير صحيحة${
+        feedback.innerHTML = `إجابة غير صحيحة<div class="feedback-answer">${this.correctAnswerText(q)}</div>${
           q.explanation ? `<div class="feedback-detail">${q.explanation}</div>` : ''
         }`;
       }
