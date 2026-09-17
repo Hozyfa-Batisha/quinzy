@@ -67,6 +67,11 @@
   box-shadow: none;
 }
 
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.8rem;
+}
+
 /* ─── LESSON CARD ────────────────────────────────────────────────── */
 .lesson-card {
   background: var(--color-surface);

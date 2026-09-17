@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الرئيسية | Quinzy منصة تعلم البرمجة</title>
+    <meta name="description"
+      content="منصة Quinzy لتعلم البرمجة لطلاب الثانوية المصرية — ملخصات أكاديمية واختبارات ذاتية في تكنولوجيا المعلومات، تحت إشراف بشمهندس حذيفة بطيشة." />
+    <meta name="keywords"
+      content="Quinzy, تعلم البرمجة, البكالوريا المصرية, تكنولوجيا المعلومات, حذيفة بطيشة, اختبارات, IT" />
+    <meta property="og:title" content="الرئيسية | Quinzy منصة تعلم البرمجة" />
+    <meta property="og:description"
+      content="ملخصات منظمة واختبارات ذاتية لمنهج تكنولوجيا المعلومات — تحت إشراف بشمهندس حذيفة بطيشة" />
+    <meta property="og:type" content="website" />
+  
+    <!-- Fonts: Noto Kufi (headings) + Noto Naskh (body) + JetBrains Mono + Geist -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" rel="stylesheet" />
+  
+    <link rel="stylesheet" href="/assets/css/variables.css" />
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+    <link rel="stylesheet" href="/assets/css/quiz.css" />
+  
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      // Replace this with your actual Google Client ID from Google Cloud Console
+      window.GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
+    </script>
+</head>
+<body>
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a href="/" class="brand" id="brand-link">
+          <div class="brand-mark" title="Quinzy">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="16.5" y1="16.5" x2="21" y2="21" />
+              <polyline points="12 8 9 11 12 14" stroke="var(--color-cta)" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">Quinzy</span>
+            <span class="brand-subtitle">منصة تعلّم البرمجة</span>
+          </div>
+        </a>
+        <nav class="header-nav">
+          <!-- Auth Container -->
+          <div id="auth-container" class="auth-container">
+            <button class="btn btn-primary btn-sm" id="btn-login" style="display: none;">
+              تسجيل الدخول
+            </button>
+            <button class="profile-avatar-btn" id="btn-profile" style="display: none;" title="الملف الشخصي">
+              <img src="" alt="Profile" id="profile-avatar" />
+            </button>
+          </div>
+  
+          <button class="theme-toggle" id="theme-toggle" type="button" title="تبديل الوضع الليلي"
+            aria-label="تبديل الوضع الليلي">
+            <span class="theme-toggle-knob" id="theme-toggle-knob">🌙</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+  <main id="home-view">
+    <section class="hero" id="home">
+      <div class="hero-bg-pattern" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <span class="hero-eyebrow">نظام البكالوريا المصرية — تكنولوجيا المعلومات</span>
+          <h1 class="hero-title">تعلّم البرمجة<br>مع <span class="hero-brand">Quinzy</span></h1>
+          <p class="hero-desc">
+            منصة تعليمية لطلاب الثانوية المصرية — ملخصات أكاديمية واختبارات ذاتية في تكنولوجيا المعلومات، تحت إشراف
+            بشمهندس حذيفة بطيشة
+          </p>
+          <div class="hero-actions">
+            <a href="#lessons-section" class="btn btn-primary" id="cta-start">ابدأ المذاكرة</a>
+            <a href="#how-it-works" class="btn btn-secondary">كيف تستخدم المنصة؟</a>
+          </div>
+        </div>
+        <aside class="hero-panel" data-reveal>
+          <div class="hero-panel-title">نظرة عامة</div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-value" id="stat-lessons">0</span>
+              <span class="stat-label">دروس متاحة</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="stat-questions">0</span>
+              <span class="stat-label">سؤال اختبار</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value">4</span>
+              <span class="stat-label">أنواع أسئلة</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value">100%</span>
+              <span class="stat-label">مجاني</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2 class="section-title">كيف تستخدم المنصة</h2>
+          <p class="section-desc">مسار تعلّم منظم يساعدك على الفهم ثم التقييم الذاتي</p>
+        </div>
+        <div class="steps-timeline">
+          <article class="step-item" data-reveal>
+            <div class="step-marker">
+              <div class="step-number">1</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <h3>مراجعة الملخص</h3>
+              <p>ابدأ بقراءة الملخص الأكاديمي للدرس وفهم المفاهيم والأهداف التعليمية.</p>
+            </div>
+          </article>
+          <article class="step-item" data-reveal>
+            <div class="step-marker">
+              <div class="step-number">2</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <h3>حل الاختبار</h3>
+              <p>أجب على الأسئلة بأنواعها المختلفة لقياس مستوى استيعابك للمحتوى.</p>
+            </div>
+          </article>
+          <article class="step-item" data-reveal>
+            <div class="step-marker">
+              <div class="step-number">3</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <h3>تقييم النتائج</h3>
+              <p>راجع درجتك واطّلع على الإجابات الصحيحة والنموذجية للأسئلة التحليلية.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="lessons-section">
+      <div class="container">
+        <div class="section-header" data-reveal>
+          <h2 class="section-title">الدروس المتاحة</h2>
+          <p class="section-desc">اختر الدرس الذي ترغب في مراجعته</p>
+        </div>
+        <div class="lesson-category" data-reveal>
+          <h3 class="lesson-category-title">الدروس المقررة</h3>
+          <div class="lessons-grid" id="other-lessons-grid"></div>
+        </div>
+        <div class="lesson-category" data-reveal>
+          <h3 class="lesson-category-title">الدروس التقنية الإضافية</h3>
+          <div class="lessons-grid" id="technical-lessons-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Viewer Shell (Shows dynamically over main content) -->
+  <div class="viewer-shell hidden" id="lesson-view">
+    <div class="viewer-toolbar">
+      <div class="viewer-toolbar-inner">
+        <button class="btn btn-secondary" type="button" id="back-to-lessons">← العودة</button>
+        <div class="viewer-breadcrumb">
+          الدروس / <span id="viewer-breadcrumb-lesson"></span>
+        </div>
+        <div class="viewer-title" id="viewer-lesson-title"></div>
+        <div class="viewer-tabs">
+          <button class="tab-btn active" type="button" data-tab="summary">الملخص</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="viewer-content">
+      <div class="tab-panel active" id="panel-summary">
+        <div id="summary-content"></div>
+      </div>
+
+      <div class="tab-panel" id="panel-quiz">
+        <div class="quiz-progress-bar">
+          <div class="quiz-counter">السؤال <span id="quiz-current">1</span> من <span id="quiz-total">0</span></div>
+          <div class="quiz-track">
+            <div class="quiz-track-fill" id="quiz-track-fill"></div>
+          </div>
+          <div class="quiz-score">النقاط: <span id="quiz-score-value">0</span></div>
+        </div>
+        <div id="quiz-questions"></div>
+        <div class="quiz-controls">
+          <button class="btn btn-secondary" type="button" id="quiz-prev" disabled>السابق</button>
+          <button class="btn btn-primary" type="button" id="quiz-next">التالي</button>
+          <button class="btn btn-success hidden" type="button" id="quiz-submit">إرسال الاختبار</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-overlay hidden" id="results-overlay">
+    <div class="results-modal">
+      <h2>نتيجة الاختبار</h2>
+      <div class="results-score" id="results-score">0 / 0</div>
+      <div class="results-percent" id="results-percent">0%</div>
+      <div class="results-bar">
+        <div class="results-bar-fill" id="results-bar-fill"></div>
+      </div>
+      <p class="results-message" id="results-message"></p>
+      <div class="results-breakdown">
+        <div class="breakdown-item correct">
+          <div class="breakdown-num" id="breakdown-correct">0</div>
+          <div class="breakdown-label">صحيحة</div>
+        </div>
+        <div class="breakdown-item wrong">
+          <div class="breakdown-num" id="breakdown-wrong">0</div>
+          <div class="breakdown-label">خاطئة</div>
+        </div>
+        <div class="breakdown-item open">
+          <div class="breakdown-num" id="breakdown-open">0</div>
+          <div class="breakdown-label">تحليلية</div>
+        </div>
+      </div>
+      <div class="results-actions">
+        <button class="btn btn-secondary" type="button" id="results-review">مراجعة الإجابات</button>
+        <button class="btn btn-primary" type="button" id="results-retry">إعادة الاختبار</button>
+      </div>
+    </div>
+  </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">Quinzy</div>
+        <p class="footer-text">منصة تعليمية لطلاب تكنولوجيا المعلومات — نظام البكالوريا المصرية</p>
+        <p class="footer-instructor">تحت إشراف بشمهندس حذيفة بطيشة</p>
+        <p class="footer-copyright">© 2026 جميع الحقوق محفوظة لـ <a href="https://github.com/Hozyfa-Batisha"
+            target="_blank" rel="noopener noreferrer">Hozyfa Batisha</a></p>
+      </div>
+    </footer>
+  
+    <script src="/assets/js/data/lessons.js"></script>
+    <script src="/assets/js/modules/api.js"></script>
+    <script src="/assets/js/modules/auth.js"></script>
+    <script src="/assets/js/modules/profile.js"></script>
+    <script src="/assets/js/modules/home.js"></script>
+    <script src="/assets/js/modules/lesson.js"></script>
+    <script src="/assets/js/modules/quiz.js"></script>
+    <script src="/assets/js/modules/results.js"></script>
+    <script src="/assets/js/modules/scroll-reveal.js"></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

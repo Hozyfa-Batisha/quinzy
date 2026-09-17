@@ -1,0 +1,138 @@
+/* ─── LIGHT MODE (Default) ─────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --color-bg:              #f4f6f9;
+  --color-surface:         #ffffff;
+  --color-surface-muted:   #edf0f5;
+  --color-surface-hover:   #e2e7ef;
+
+  /* Borders */
+  --color-border:          #d1d8e4;
+  --color-border-light:    #e2e7ef;
+
+  /* Brand – deep navy (academic authority) */
+  --color-primary:         #0c4a6e;
+  --color-primary-light:   #0369a1;
+  --color-primary-dark:    #082f49;
+  --color-primary-soft:    #f0f7ff;
+  --color-primary-glow:    rgba(12, 74, 110, 0.2);
+
+  /* Accent – teal (technology) */
+  --color-accent:          #0891b2;
+  --color-accent-light:    #22d3ee;
+  --color-accent-soft:     #ecfeff;
+
+  /* CTA – amber (action) */
+  --color-cta:             #d97706;
+  --color-cta-light:       #f59e0b;
+  --color-cta-soft:        #fffbeb;
+
+  /* Text */
+  --color-text:            #1e293b;
+  --color-text-secondary:  #475569;
+  --color-text-muted:      #94a3b8;
+
+  /* Status */
+  --color-success:         #059669;
+  --color-success-bg:      #ecfdf5;
+  --color-error:           #dc2626;
+  --color-error-bg:        #fef2f2;
+  --color-info:            #0284c7;
+  --color-info-bg:         #f0f9ff;
+  --color-warning:         #d97706;
+  --color-warning-bg:      #fffbeb;
+
+  /* Typography */
+  --font-display-ar: 'Noto Kufi Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  --font-body-ar:    'Noto Naskh Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  --font-latin:      'Geist', 'Inter', system-ui, sans-serif;
+  --font-mono:       'JetBrains Mono', 'Consolas', monospace;
+
+  /* Radii */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
+
+  /* Shadows – tinted to navy */
+  --shadow-sm:   0 1px 4px rgba(12, 74, 110, 0.06);
+  --shadow-md:   0 4px 20px rgba(12, 74, 110, 0.08);
+  --shadow-lg:   0 12px 48px rgba(12, 74, 110, 0.12);
+  --shadow-glow: 0 0 32px rgba(8, 145, 178, 0.18);
+
+  /* Layout */
+  --header-height: 60px;
+  --content-width: 960px;
+  --wide-width:    1200px;
+
+  /* Transitions – premium cubic-bezier */
+  --transition:       0.25s cubic-bezier(0.32, 0.72, 0, 1);
+  --transition-slow:  0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Hero */
+  --hero-gradient: linear-gradient(160deg, #f4f6f9 0%, #e0f2fe 40%, #ecfeff 100%);
+
+  /* Scrollbar */
+  --scrollbar-thumb:  #c7d2de;
+  --scrollbar-track:  var(--color-surface-muted);
+}
+
+/* ─── DARK MODE ────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  /* Backgrounds */
+  --color-bg:              #0a0e17;
+  --color-surface:         #111827;
+  --color-surface-muted:   #1a2235;
+  --color-surface-hover:   #1e2a42;
+
+  /* Borders */
+  --color-border:          #2a3a58;
+  --color-border-light:    #1e2d4a;
+
+  /* Brand – lighter navy for dark bg */
+  --color-primary:         #38bdf8;
+  --color-primary-light:   #7dd3fc;
+  --color-primary-dark:    #0ea5e9;
+  --color-primary-soft:    rgba(56, 189, 248, 0.08);
+  --color-primary-glow:    rgba(56, 189, 248, 0.2);
+
+  /* Accent – cyan-teal */
+  --color-accent:          #22d3ee;
+  --color-accent-light:    #67e8f9;
+  --color-accent-soft:     rgba(34, 211, 238, 0.08);
+
+  /* CTA – amber */
+  --color-cta:             #fbbf24;
+  --color-cta-light:       #fcd34d;
+  --color-cta-soft:        rgba(251, 191, 36, 0.08);
+
+  /* Text */
+  --color-text:            #e2e8f0;
+  --color-text-secondary:  #94a3b8;
+  --color-text-muted:      #64748b;
+
+  /* Status */
+  --color-success:         #34d399;
+  --color-success-bg:      rgba(52, 211, 153, 0.08);
+  --color-error:           #f87171;
+  --color-error-bg:        rgba(248, 113, 113, 0.08);
+  --color-info:            #60a5fa;
+  --color-info-bg:         rgba(96, 165, 250, 0.08);
+  --color-warning:         #fbbf24;
+  --color-warning-bg:      rgba(251, 191, 36, 0.08);
+
+  /* Shadows */
+  --shadow-sm:   0 1px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md:   0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg:   0 12px 56px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(56, 189, 248, 0.15);
+
+  /* Hero */
+  --hero-gradient: linear-gradient(160deg, #0a0e17 0%, #0c1a2e 40%, #0a1e26 100%);
+
+  /* Scrollbar */
+  --scrollbar-thumb:  #2a3a58;
+  --scrollbar-track:  #0a0e17;
+}
