@@ -1,6 +1,7 @@
 [
   {
     "id": "it-evolution",
+    "category": "course",
     "order": 1,
     "titleAr": "تطور تكنولوجيا المعلومات والتحول الاجتماعي",
     "titleEn": "IT Evolution & Social Transformation",
@@ -10,7 +11,8 @@
   },
   {
     "id": "numbering-systems",
-    "order": 2,
+    "category": "technical",
+    "order": 1,
     "titleAr": "أنظمة العد الرقمية",
     "titleEn": "Digital Numbering Systems",
     "description": "الأنظمة العشري والثنائي والثماني والست عشري، وعمليات التحويل بينها.",
@@ -19,7 +21,8 @@
   },
   {
     "id": "how-ai-works",
-    "order": 3,
+    "category": "course",
+    "order": 2,
     "titleAr": "كيف يعمل الذكاء الاصطناعي؟",
     "titleEn": "How AI Works",
     "description": "مفاهيم الذكاء الاصطناعي، تعلم الآلة، الشبكات العصبية، والتحديات الأخلاقية.",
@@ -28,7 +31,8 @@
   },
   {
     "id": "ai-daily-life",
-    "order": 4,
+    "category": "course",
+    "order": 3,
     "titleAr": "الذكاء الاصطناعي في الحياة اليومية",
     "titleEn": "AI Daily Life",
     "description": "تطبيقات الذكاء الاصطناعي في الخدمات اليومية والصناعة، مع التركيز على الخصوصية والتحيز والإشراف البشري.",

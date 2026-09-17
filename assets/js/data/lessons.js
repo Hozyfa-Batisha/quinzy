@@ -2,6 +2,7 @@
 window.LESSON_DATA = [
   {
     "id": "it-evolution",
+    "category": "course",
     "order": 1,
     "titleAr": "تطور تكنولوجيا المعلومات والتحول الاجتماعي",
     "titleEn": "IT Evolution & Social Transformation",
@@ -627,6 +628,7 @@ window.LESSON_DATA = [
   },
   {
     "id": "numbering-systems",
+    "category": "technical",
     "order": 2,
     "titleAr": "أنظمة العد الرقمية",
     "titleEn": "Digital Numbering Systems",
@@ -953,6 +955,7 @@ window.LESSON_DATA = [
   },
   {
     "id": "how-ai-works",
+    "category": "course",
     "order": 3,
     "titleAr": "كيف يعمل الذكاء الاصطناعي؟",
     "titleEn": "How AI Works",
@@ -1553,6 +1556,7 @@ window.LESSON_DATA = [
   },
   {
     "id": "ai-daily-life",
+    "category": "course",
     "order": 4,
     "titleAr": "الذكاء الاصطناعي في الحياة اليومية",
     "titleEn": "AI Daily Life",

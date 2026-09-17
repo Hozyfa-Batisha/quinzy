@@ -39,13 +39,14 @@ function animateCounter(el, target, suffix = '') {
 
 const HomeView = {
   renderLessons(lessons) {
-    const grid = document.getElementById('lessons-grid');
-    if (!grid) return;
+    const technicalGrid = document.getElementById('technical-lessons-grid');
+    const otherGrid = document.getElementById('other-lessons-grid');
+    if (!technicalGrid || !otherGrid) return;
 
-    grid.innerHTML = lessons
+    const renderCards = (lessonList, startIndex = 0) => lessonList
       .map(
         (lesson, i) => `
-      <article class="lesson-card" data-lesson-id="${lesson.id}" style="animation-delay: ${i * 0.07}s">
+      <article class="lesson-card" data-lesson-id="${lesson.id}" style="animation-delay: ${(startIndex + i) * 0.07}s">
         <div class="lesson-card-header">
           <span class="lesson-order">الدرس ${lesson.order}</span>
           <div class="lesson-icon" aria-hidden="true">${getLessonIcon(lesson.titleAr + lesson.titleEn)}</div>
@@ -69,7 +70,12 @@ const HomeView = {
       )
       .join('');
 
-    grid.querySelectorAll('.lesson-card').forEach((card) => {
+    const technicalLessons = lessons.filter((lesson) => lesson.category === 'technical');
+    const otherLessons = lessons.filter((lesson) => lesson.category !== 'technical');
+    technicalGrid.innerHTML = renderCards(technicalLessons);
+    otherGrid.innerHTML = renderCards(otherLessons, technicalLessons.length);
+
+    document.querySelectorAll('.lessons-grid .lesson-card').forEach((card) => {
       card.addEventListener('click', () => {
         const id = card.dataset.lessonId;
         window.App.openLesson(id);

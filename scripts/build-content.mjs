@@ -391,6 +391,7 @@ function build() {
 
       return {
         id: lesson.id,
+        category: lesson.category ?? 'course',
         order: lesson.order,
         titleAr: lesson.titleAr,
         titleEn: lesson.titleEn,
