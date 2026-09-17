@@ -17,7 +17,7 @@ services:
       - backend
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.quinzy.rule=Host(`${QUINZY_HOSTNAME?Set QUINZY_HOSTNAME in .env}`)"
+      - "traefik.http.routers.quinzy.rule=Host(`${QUINZY_HOSTNAME}`)"
       - "traefik.http.routers.quinzy.entrypoints=websecure"
       - "traefik.http.routers.quinzy.tls.certresolver=letsencrypt"
       - "traefik.http.services.quinzy.loadbalancer.server.port=8080"
@@ -32,8 +32,8 @@ services:
     volumes:
       - ./backend/data:/app/data
     environment:
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-YOUR_GOOGLE_CLIENT_ID}
-      - JWT_SECRET=${JWT_SECRET:-super-secret-local-key}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - JWT_SECRET=${JWT_SECRET}
     networks:
       - internal
 
