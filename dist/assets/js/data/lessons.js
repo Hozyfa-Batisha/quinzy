@@ -125,23 +125,160 @@ window.LESSON_DATA = [
     }
   },
   {
-    "id": "queue",
+    "id": "first-lecture-programming",
     "category": "technical",
     "order": 1,
-    "titleAr": "الطابور (Queue)",
-    "titleEn": "Queue Data Structure",
-    "description": "مفهوم الطابور، عملياته الأساسية، وتطبيقاته البرمجية.",
+    "titleAr": "من المشكلة إلى البرنامج",
+    "titleEn": "From Problem to Program",
+    "description": "فهم ماهية البرمجة والخوارزميات، الإدخال والمعالجة والمخرجات، وكتابة أول برنامج بايثون.",
     "objectives": "<ol class=\"objectives-list\"><li>فهم ماهية البرمجة والفرق بين لغات البشر ولغات البرمجة.</li><li>تمييز مفهوم الخوارزمية (Algorithm) والفرق الجوهري بينها وبين الكود البرمجي (Code).</li><li>استيعاب نموذج المعالجة البرمجية الأساسي: <strong>الإدخال <span class=\"math\">\\rightarrow</span> المعالجة <span class=\"math\">\\rightarrow</span> المخرجات (Input <span class=\"math\">\\rightarrow</span> Process <span class=\"math\">\\rightarrow</span> Output)</strong>.</li><li>فهم أهمية الترتيب والتسلسل (Sequence) في تنفيذ الأوامر والتعليمات.</li><li>تتبع رحلة حل المشكلات البرمجية: <strong>(المشكلة <span class=\"math\">\\rightarrow</span> فهمها <span class=\"math\">\\rightarrow</span> الخوارزمية <span class=\"math\">\\rightarrow</span> الكود <span class=\"math\">\\rightarrow</span> التشغيل واختبار النتائج)</strong>.</li><li>كتابة وتشغيل أول برنامج عملي بلغة بايثون باستخدام الدالتين <code>print()</code> و <code>input()</code>.</li></ol>",
     "summaryHtml": "<p><strong>المستوى:</strong> المبتدئين في البرمجة والتفكير الحاسوبي</p>\n<p><strong>المصدر:</strong> First_Lecture_Programming_Baccalaureate.md</p>\n<hr>\n\n<hr>\n<h2>\udcbb 1. المفاهيم الأساسية والتفصيلية</h2>\n<h3>.1 ما هي البرمجة (Programming)؟</h3>\n<ul><li><strong>التعريف:</strong> هي عملية إعطاء الكمبيوتر مجموعة من التعليمات الواضحة والمنظمة والتفصيلية التي تساعده على حل مشكلة معينة أو تنفيذ مهمة محددة.</li><li><strong>لماذا نحتاج البرمجة؟</strong> الحواسب أجهزة إلكترونية فائقة السرعة لكنها لا تملك وعياً ولا تستطيع قراءة الأفكار أو التخمين. لذلك يلزم تزويدها بتعليمات لا تحتمل التردد أو الغموض.</li><li><strong>الفرق بين لغات البشر ولغات البرمجة:</strong></li><li><strong>لغات البشر (Human Languages):</strong> مثل العربية والأوردو والإنجليزية؛ تستوعب المجاز والغموض والسياق الضمني.</li><li><strong>لغات البرمجة (Programming Languages):</strong> مثل Python, C++, Java, JavaScript; تتطلب دقة متناهية واتباعاً صارماً للقواعد المحددة.</li></ul>\n<hr>\n<h3>.2 الخوارزمية (Algorithm) مقابل الكود (Code)</h3>\n<ul><li><strong>الخوارزمية (Algorithm):</strong> هي مجموعة من الخطوات المرتبة والواضحة والمحدودة لحل مشكلة معينة. تمثل <strong>فكرة وخطة الحل المنطقية</strong> قبل كتابة أي سطر برمجيات.</li><li><strong>الكود البرمجي (Code):</strong> هو ترجمة وتطبيق هذه الخوارزمية باستخدام لغة برمجة معينة يستطيع المعالج تنفيذها.</li><li><strong>القاعدة الذهبية:</strong> <span class=\"math\">\\text{Algorithm} \\neq \\text{Code}</span> (الخوارزمية هي الفكرة، والكود هو الأداة).</li></ul>\n<p>#### مثال منطقي: معرفة الرقم الأكبر بين رقمين (<span class=\"math\">A</span> و <span class=\"math\">B</span>)</p>\n<ol><li>اقرأ قيمة الرقم الأول (<span class=\"math\">A</span>).</li><li>اقرأ قيمة الرقم الثاني (<span class=\"math\">B</span>).</li><li>قارن بين قيمتي <span class=\"math\">A</span> و <span class=\"math\">B</span>.</li><li>إذا كان <span class=\"math\">A &gt; B</span>، اعرض القيمة <span class=\"math\">A</span>.</li><li>وإلا (إذا كان <span class=\"math\">B \\ge A</span>)، اعرض القيمة <span class=\"math\">B</span>.</li></ol>\n<hr>\n<h3>.3 نموذج تدفق البيانات: <span class=\"math\">Input \\rightarrow Process \\rightarrow Output</span></h3>\n<p>يمثل هذا النموذج الصندوقي الهيكل البنائي الأساسي لعمل معظم البرامج الحاسوبية:</p>\n<ol><li><strong>الإدخال (Input):</strong> البيانات والمعلومات التي تتلقاها البرمجية من المستخدم أو مستشعرات الجهاز.</li><li><strong>المعالجة (Process):</strong> العمليات الحسابية أو المنطقية التي تُجرى على البيانات المُدخلة.</li><li><strong>المخرجات (Output):</strong> النتائج أو الرسائل النهائية التي يعرضها البرنامج أو يُصدّرها.</li></ol>\n<p>#### مثال تطبيقي: حساب مساحة مستطيل</p>\n<ul><li><strong>Input:</strong> الطول (<span class=\"math\">Length = 10</span>)، العرض (<span class=\"math\">Width = 5</span>).</li><li><strong>Process:</strong> حساب المساحة = الطول <span class=\"math\">\\times</span> العرض (<span class=\"math\">Area = 10 \\times 5</span>).</li><li><strong>Output:</strong> عرض المساحة (<span class=\"math\">50</span>).</li></ul>\n<hr>\n<h3>.4 مفهوم التسلسل (Sequence)</h3>\n<ul><li><strong>المفهوم:</strong> هو تنفيذ الأوامر البرمجية خطوة تلو الأخرى بالترتيب الدقيق من الأعلى إلى الأسفل.</li><li><strong>أهمية الترتيب:</strong> تغيير ترتيب الخطوات يغير النتيجة تماماً وقد يؤدي لعدم منطقية الحل.</li><li>*مثال حركي:* (1. افتح الباب <span class=\"math\">\\rightarrow</span> 2. ادخل الغرفة <span class=\"math\">\\rightarrow</span> 3. أغلق الباب) خطة ناجحة. بينما (1. أغلق الباب <span class=\"math\">\\rightarrow</span> 2. ادخل الغرفة <span class=\"math\">\\rightarrow</span> 3. افتح الباب) خطة غير منطقية وتفشل عملياً.</li></ul>\n<hr>\n<h3>.5 رحلة التفكير البرمجي الكاملة (Problem to Code Journey)</h3>\n<p>لحل أي مشكلة برمجية، يتبع المبرمج المسار المنهجي التالي:</p>\n<pre class=\"math-block\"><code>\n* **مفهوم بناء الجملة (Syntax):** هو القواعد النحوية والهيكلية المحددة للغة البرمجية التي يجب الالتزام بها بدقة (مثل الأقواس وعلامات التنصيص والمسافات البادئة).\n\n---\n\n## 🐍 2. الأكواد والتطبيقات العملية بلغة بايثون (Python)\n\n### 2.1 أول برنامج: طباعة النصوص `print()`\nتُستخدم الدالة `print()` لعرض المخرجات على الشاشة:\n```python\n# طباعة نص بسيط\nprint(&quot;Hello, World!&quot;)\n\n# طباعة أسطر متتابعة توضح مفهوم التسلسل (Sequence)\nprint(&quot;Hello&quot;)\nprint(&quot;My name is Ahmed&quot;)\nprint(&quot;I love programming&quot;)\n```\n\n### 2.2 استقبال إدخال المستخدم `input()`\nتُستخدم الدالة `input()` لطلب بيانات من المستخدم في الوقت الفعلي:\n```python\n# استقبال اسم المستخدم وطباعة ترحيب\nname = input(&quot;What is your name? &quot;)\nprint(&quot;Hello&quot;, name)\n```\n\n### 2.3 التطبيق الشامل: برنامج الترحيب وعرض البيانات\nبرنامج يستقبل اسم الطالب وعمره ثم يطبع رسالة ترحيب مخصصة:\n```python\n# 1. Input: الإدخال\nname = input(&quot;Enter your name: &quot;)\nage = input(&quot;Enter your age: &quot;)\n\n# 2 &amp; 3. Process &amp; Output: المعالجة والعرض بالتسلسل\nprint(&quot;Hello&quot;, name)\nprint(&quot;Your age is&quot;, age)\n```\n\n---\n\n## 📌 3. جدول ملخص المفاهيم المحورية\n\n| المفهوم البرمجي | الفكرة الجوهرية ومربط الفرس | مثال حي أو تطبيقي |\n| :--- | :--- | :--- |\n| **البرمجة (Programming)** | إعطاء الكمبيوتر تعليمات دقيقة لحل مشكلة. | كتابة برنامج لحساب المتوسط الحسابي. |\n| **الخوارزمية (Algorithm)** | خطوات مرتبة وواضحة لحل المشكلة (الفكرة). | خطوات إعداد كوب شاي أو حساب مساحة مستطيل. |\n| **الكود (Code)** | ترجمة الخوارزمية بلغة برمجة يفهمها الجهاز. | كتابة الأوامر بلغة بايثون مثل `print()` و `input()`. |\n| **التسلسل (Sequence)** | تنفيذ الأوامر بترتيب خطي متتابع من الأعلى للأسفل. | تنفيذ السطر الأول ثم الثاني ثم الثالث بالترتيب. |\n| **Syntax** | القواعد النحوية والتركيبية الخاصة بكل لغة برمجة. | استخدام علامات التنصيص حول النصوص في بايثون. |\n\n---\n\n## 🏁 4. قائمة التحقق للطلاب (Checklist)\nقبل الانتقال للمحاضرة التالية، اطلب من الطالب التأكد من قدرته على:\n* [x] شرح معنى البرمجة والفرق بينها وبين لغة البشر.\n* [x] تعريف الخوارزمية وتحديد الفرق بينها وبين الكود.\n* [x] تحديد عناصر $Input \\rightarrow Process \\rightarrow Output$ لأي مشكلة بسيطة.\n* [x] شرح أهمية التسلسل (Sequence) وتأثير تغيير ترتيب الأوامر.\n* [x] كتابة برنامج بايثون يستقبل إدخالاً بـ `input()` ويطبع ناتجاً بـ `print()`.\n</code></pre>",
     "exercises": [],
-    "questions": [],
+    "questions": [
+      {
+        "type": "mcq",
+        "question": "ما هو التعريف الدقيق لمفهوم الخوارزمية (Algorithm)؟",
+        "options": [
+          {
+            "key": "أ",
+            "text": "كود مكتوب بلغة بايثون أو C++ يتم تشغيله على الحاسوب مباشرة."
+          },
+          {
+            "key": "ب",
+            "text": "مجموعة من الخطوات المرتبة والواضحة المستخدمة لحل مشكلة معينة قبل كتابة الكود."
+          },
+          {
+            "key": "ج",
+            "text": "الأخطاء البرمجية التي تظهر أثناء تشغيل البرنامج."
+          },
+          {
+            "key": "د",
+            "text": "الشاشة التي تعرض مخرجات البرنامج للمستخدم."
+          }
+        ],
+        "correct": "ب"
+      },
+      {
+        "type": "mcq",
+        "question": "أي مما يلي يمثل الترتيب الصحيح لمراحل حل المشكلة البرمجية؟",
+        "options": [
+          {
+            "key": "أ",
+            "text": "$\\text{Code} \\rightarrow \\text{Output} \\rightarrow \\text{Algorithm} \\rightarrow \\text{Problem}$"
+          },
+          {
+            "key": "ب",
+            "text": "$\\text{Problem} \\rightarrow \\text{Algorithm} \\rightarrow \\text{Code} \\rightarrow \\text{Output}$"
+          },
+          {
+            "key": "ج",
+            "text": "$\\text{Algorithm} \\rightarrow \\text{Problem} \\rightarrow \\text{Output} \\rightarrow \\text{Code}$"
+          },
+          {
+            "key": "د",
+            "text": "$\\text{Output} \\rightarrow \\text{Code} \\rightarrow \\text{Problem} \\rightarrow \\text{Algorithm}$"
+          }
+        ],
+        "correct": "ب"
+      },
+      {
+        "type": "mcq",
+        "question": "المفهوم البرمجي الذي يعني \"تنفيذ الأوامر خطوة تلو الأخرى بالترتيب\" يسمى:",
+        "options": [
+          {
+            "key": "أ",
+            "text": "المعالجة (Process)."
+          },
+          {
+            "key": "ب",
+            "text": "بناء الجملة (Syntax)."
+          },
+          {
+            "key": "ج",
+            "text": "التسلسل (Sequence)."
+          },
+          {
+            "key": "د",
+            "text": "الإدخال (Input)."
+          }
+        ],
+        "correct": "ج"
+      },
+      {
+        "type": "mcq",
+        "question": "ما الذي تُعبر عنه كلمة (Syntax) في عالم البرمجة؟",
+        "options": [
+          {
+            "key": "أ",
+            "text": "سرعة معالج الحاسوب في تنفيذ العمليات."
+          },
+          {
+            "key": "ب",
+            "text": "قواعد وهيكل كتابة الأوامر بلغة برمجة معينة."
+          },
+          {
+            "key": "ج",
+            "text": "البيانات التي يرسلها المستخدم عبر لوحة المفاتيح."
+          },
+          {
+            "key": "د",
+            "text": "برنامج الحماية من الفيروسات."
+          }
+        ],
+        "correct": "ب"
+      },
+      {
+        "type": "truefalse",
+        "question": "الخوارزمية (Algorithm) هي نفسها الكود البرمجي (Code).",
+        "correct": false,
+        "explanation": "الخوارزمية هي خطة الحل المنطقية، بينما الكود هو صياغة هذه الخوارزمية بلغة برمجة محددة."
+      },
+      {
+        "type": "truefalse",
+        "question": "تغيير ترتيب الأوامر البرمجية في لغة بايثون لا يؤثر على النتيجة النهائية.",
+        "correct": false,
+        "explanation": "يؤثر بشكل جوهري لأن الحواسيب تعتمد على مفهوم التسلسل (Sequence) في التنفيذ."
+      },
+      {
+        "type": "truefalse",
+        "question": "الدالة `input()` في بايثون تستخدم لعرض المخرجات على الشاشة.",
+        "correct": false,
+        "explanation": "الدالة `input()` تُستخدم لطلب واستقبال المدخلات من المستخدم، بينما `print()` هي المخصصة لعرض المخرجات."
+      },
+      {
+        "type": "truefalse",
+        "question": "تستطيع الحواسب فهم اللغات البشرية الضمنية بدون الحاجة لتعليمات دقيقة ومفصلة.",
+        "correct": false,
+        "explanation": "الحواسب تحتاج لتعليمات دقيقة ومحددة جداً خالية من التخمين والغموض."
+      },
+      {
+        "type": "open",
+        "question": "ألقِ نظرة على الكود التالي وتوقع المخرجات الدقيقة قبل تشغيله:",
+        "modelAnswer": "المخرجات ستكون ثلاثة أسطر متتالية بسبب دالة `print()` وبحسب مبدأ التسلسل (Sequence):\n```text\nStep 1: Start\nStep 2: Processing\nStep 3: Finish\n```"
+      },
+      {
+        "type": "open",
+        "question": "قم بتحليل المسألة التالية: \"حساب متوسط ثلاثة أرقام ($A, B, C$)\" واكتب عناصرها الخمسة.",
+        "modelAnswer": "1. **Input (المدخلات):** الأرقام الثلاثة ($A, B, C$).\n2. **Process (المعالجة):** \n   * الجمع: $Sum = A + B + C$\n   * القسمة: $Average = \\frac{Sum}{3}$\n3. **Output (المخرجات):** قيمة المتوسط ($Average$).\n4. **الخوارزمية (Algorithm):**\n   1. اقرأ القيم $A, B, C$.\n   2. احسب مجموع $A + B + C$ واحفظه في $Sum$.\n   3. اقسم $Sum$ على 3 واحفظ الناتج في $Average$.\n   4. اطبع قيمة $Average$."
+      },
+      {
+        "type": "open",
+        "question": "اكتب برنامجاً كاملاً بلغة بايثون (Python) يقوم بما يلي:",
+        "modelAnswer": "```python\n# استقبال البيانات (Input)\nuser_name = input(\"Enter your first name: \")\nuser_city = input(\"Enter your city: \")\n\n# عرض البيانات (Process & Output)\nprint(\"Welcome,\", user_name)\nprint(\"You are living in\", user_city)\n```"
+      },
+      {
+        "type": "open",
+        "question": "تمرين التفكير كالمبرمج (دقة خطوات إعداد الشاي أو الساندويتش):",
+        "modelAnswer": "* **سبب القصور:** الخطوات غير دقيقة وتحتوي على غموض؛ لم تحدد أين يوضع الشاي، وما مقدار الشاي والماء، وأين توضع المياه للتسخين، ومتى نتوقف عن التسخين. البرمجة تتطلب عدم ترك مساحة للتخمين.\n* **التصويب:**\n  1. احضر كوز المياه واملأ 250 مل من الماء.\n  2. ضع الماء في الغلاية الكهربائية وشغلها.\n  3. انتظر حتى تغلي المياه وتتوقف الغلاية تلقائياً.\n  4. ضع كيس شاي واحد وملعقة سكر في الكوب.\n  5. اسكب الماء المغلي في الكوب وحرك بالملعقة."
+      }
+    ],
     "stats": {
-      "mcq": 0,
-      "truefalse": 0,
+      "mcq": 4,
+      "truefalse": 4,
       "matching": 0,
-      "open": 0,
+      "open": 4,
       "exercises": 0,
-      "total": 0
+      "total": 12
     }
   },
   {
@@ -152,22 +289,22 @@ window.LESSON_DATA = [
     "titleEn": "Digital Numbering Systems",
     "description": "الأنظمة العشري والثنائي والثماني والست عشري، وعمليات التحويل بينها.",
     "objectives": "<ol class=\"objectives-list\"><li>فهم سبب استخدام الحاسوب لنظام عد يختلف عن النظام العشري البشري.</li><li>المقارنة الدقيقة بين الأنظمة الأربعة: العشري، الثنائي، الثماني، والست عشري.</li><li>إتقان عمليات التحويل الرياضي بين الأنظمة المختلفة بخطوات محددة وعملية.</li></ol>",
-    "summaryHtml": "<hr>\n<h2>المفاهيم الأساسية لأنظمة العد</h2>\n<ul><li><strong>نظام العد (Numbering System):</strong> هو طريقة لتمثيل الأرقام باستخدام مجموعة محددة من الرموز (الأرقام أو الحروف).</li><li><strong>أساس النظام (Base):</strong> يحدد عدد الرموز المتاحة في النظام، وتعتمد قيمة كل رمز على موقعه (الوزن أو القيمة المكانية).</li></ul>\n<h3>لماذا يتعامل الحاسوب بالنظام الثنائي؟</h3>\n<p>يعتمد الحاسوب في دوائره الداخلية على الملايين من الترانزستورات والمفاتيح الكهربائية التي لا تملك إلا حالتين فيزيائيتين فقط:</p>\n<ul><li><strong>مرور تيار كهربائي (On / مفتوح):</strong> ويرمز له بالرمز <code>1</code>.</li><li><strong>عدم مرور تيار كهربائي (Off / مغلق):</strong> ويرمز له بالرمز <code>0</code>.</li><li>كل خانة ثنائية تُسمى <strong>بت (Bit)</strong>، وهي أصغر وحدة قياس بيانات في الحاسوب.</li></ul>\n<hr>\n<h2>مقارنة الأنظمة الأربعة الأساسية</h2>\n<div class=\"table-wrap\"><table class=\"summary-table\">\n<thead><tr><th>وجه المقارنة</th><th>النظام العشري (Decimal)</th><th>النظام الثنائي (Binary)</th><th>النظام الثماني (Octal)</th><th>النظام الست عشري (Hexadecimal)</th></tr></thead>\n<tbody>\n<tr><td><strong>الأساس (Base)</strong></td><td><strong>10</strong></td><td><strong>2</strong></td><td><strong>8</strong></td><td><strong>16</strong></td></tr>\n<tr><td><strong>الرموز المستخدمة</strong></td><td>من 0 إلى 9</td><td>0 و 1</td><td>من 0 إلى 7</td><td>من 0 إلى 9 + الحروف (A إلى F)</td></tr>\n<tr><td><strong>قيمة الحروف</strong></td><td>-</td><td>-</td><td>-</td><td>A=10, B=11, C=12, D=13, E=14, F=15</td></tr>\n<tr><td><strong>أوزان الخانات</strong></td><td><span class=\"math\">10^0, 10^1, 10^2...</span></td><td><span class=\"math\">2^0, 2^1, 2^2, 2^3...</span></td><td><span class=\"math\">8^0, 8^1, 8^2...</span></td><td><span class=\"math\">16^0, 16^1, 16^2...</span></td></tr>\n<tr><td><strong>تمثيل الخانة</strong></td><td>التعامل البشري</td><td>الدوائر الداخلية</td><td>رمز واحد = 3 بتات ثنائية</td><td>رمز واحد = 4 بتات ثنائية</td></tr>\n<tr><td><strong>الاستخدام الأساسي</strong></td><td>المعاملات اليومية</td><td>معالجة الطاقة بالمعالج</td><td>اختصار السلاسل الثنائية</td><td>عنونة الذاكرة (RAM) وتشفير الألوان</td></tr>\n</tbody></table></div>\n<hr>\n<h2>طرق التحويل الرياضي بين الأنظمة</h2>\n<h3>أ) من العشري إلى الثنائي (القسمة المتكررة على 2)</h3>\n<p>نقسم العدد العشري على 2 ونُسجّل باقي القسمة (0 أو 1)، ونستمر حتى يصبح الناتج 0. نقرأ البواقي من الأسفل إلى الأعلى (من اليسار إلى اليمين بالإنجليزية).</p>\n<ul><li><strong>مثال:</strong> تحويل <span class=\"math\">(13)_{10}</span> إلى ثنائي:</li><li><span class=\"math\">13 \\div 2 = 6</span> والباقي <strong>1</strong></li><li><span class=\"math\">6 \\div 2 = 3</span> والباقي <strong>0</strong></li><li><span class=\"math\">3 \\div 2 = 1</span> والباقي <strong>1</strong></li><li><span class=\"math\">1 \\div 2 = 0</span> والباقي <strong>1</strong></li><li><strong>النتيجة:</strong> <span class=\"math\">(13)_{10} = (1101)_2</span></li></ul>\n<h3>ب) من الثنائي إلى العشري (طريقة الأوزان)</h3>\n<p>نضرب كل بت ثنائي في وزن خانته المقابلة (<span class=\"math\">2^{\text{position}}</span>) ثم نجمع النواتج.</p>\n<ul><li><strong>مثال:</strong> تحويل <span class=\"math\">(10110)_2</span> إلى عشري:</li><li><span class=\"math\">(0 \times 2^0) + (1 \times 2^1) + (1 \times 2^2) + (0 \times 2^3) + (1 \times 2^4)</span></li><li><span class=\"math\">= (0 \times 1) + (1 \times 2) + (1 \times 4) + (0 \times 8) + (1 \times 16) = 0 + 2 + 4 + 0 + 16 = (22)_{10}</span></li></ul>\n<h3>ج) من الثنائي إلى الست عشري (المجموعات الرباعية)</h3>\n<p>نُقسّم السلسلة الثنائية إلى مجموعات تضم كل منها 4 بتات (بدءاً من اليمين)، ونحوّل كل مجموعة إلى رمزها الست عشري.</p>\n<ul><li><strong>مثال:</strong> تحويل <span class=\"math\">(11010111)_2</span> إلى ست عشري:</li><li>المجموعة الأولى (اليمين): <span class=\"math\">0111 = (1 \times 1) + (1 \times 2) + (1 \times 4) + (0 \times 8) = 7</span></li><li>المجموعة الثانية (اليسار): <span class=\"math\">1101 = (1 \times 1) + (0 \times 2) + (1 \times 4) + (1 \times 8) = 13 \rightarrow \text{الحرف } D</span></li><li><strong>النتيجة:</strong> <span class=\"math\">(11010111)_2 = (D7)_{16}</span></li></ul>",
+    "summaryHtml": "<hr>\n<h2>المفاهيم الأساسية لأنظمة العد</h2>\n<ul><li><strong>نظام العد (Numbering System):</strong> هو طريقة لتمثيل الأرقام باستخدام مجموعة محددة من الرموز (الأرقام أو الحروف).</li><li><strong>أساس النظام (Base):</strong> يحدد عدد الرموز المتاحة في النظام، وتعتمد قيمة كل رمز على موقعه (الوزن أو القيمة المكانية).</li></ul>\n<h3>لماذا يتعامل الحاسوب بالنظام الثنائي؟</h3>\n<p>يعتمد الحاسوب في دوائره الداخلية على الملايين من الترانزستورات والمفاتيح الكهربائية التي لا تملك إلا حالتين فيزيائيتين فقط:</p>\n<ul><li><strong>مرور تيار كهربائي (On / مفتوح):</strong> ويرمز له بالرمز <code>1</code>.</li><li><strong>عدم مرور تيار كهربائي (Off / مغلق):</strong> ويرمز له بالرمز <code>0</code>.</li><li>كل خانة ثنائية تُسمى <strong>بت (Bit)</strong>، وهي أصغر وحدة قياس بيانات في الحاسوب.</li></ul>\n<hr>\n<h2>مقارنة الأنظمة الأربعة الأساسية</h2>\n<div class=\"table-wrap\"><table class=\"summary-table\">\n<thead><tr><th>وجه المقارنة</th><th>النظام العشري (Decimal)</th><th>النظام الثنائي (Binary)</th><th>النظام الثماني (Octal)</th><th>النظام الست عشري (Hexadecimal)</th></tr></thead>\n<tbody>\n<tr><td><strong>الأساس (Base)</strong></td><td><strong>10</strong></td><td><strong>2</strong></td><td><strong>8</strong></td><td><strong>16</strong></td></tr>\n<tr><td><strong>الرموز المستخدمة</strong></td><td>من 0 إلى 9</td><td>0 و 1</td><td>من 0 إلى 7</td><td>من 0 إلى 9 + الحروف (A إلى F)</td></tr>\n<tr><td><strong>قيمة الحروف</strong></td><td>-</td><td>-</td><td>-</td><td>A=10, B=11, C=12, D=13, E=14, F=15</td></tr>\n<tr><td><strong>أوزان الخانات</strong></td><td><span class=\"math\">10^0, 10^1, 10^2...</span></td><td><span class=\"math\">2^0, 2^1, 2^2, 2^3...</span></td><td><span class=\"math\">8^0, 8^1, 8^2...</span></td><td><span class=\"math\">16^0, 16^1, 16^2...</span></td></tr>\n<tr><td><strong>تمثيل الخانة</strong></td><td>التعامل البشري</td><td>الدوائر الداخلية</td><td>رمز واحد = 3 بتات ثنائية</td><td>رمز واحد = 4 بتات ثنائية</td></tr>\n<tr><td><strong>الاستخدام الأساسي</strong></td><td>المعاملات اليومية</td><td>معالجة الطاقة بالمعالج</td><td>اختصار السلاسل الثنائية</td><td>عنونة الذاكرة (RAM) وتشفير الألوان</td></tr>\n</tbody></table></div>\n<hr>\n<h2>طرق التحويل الرياضي بين الأنظمة</h2>\n<h3>أ) من العشري إلى الثنائي (القسمة المتكررة على 2)</h3>\n<p>نقسم العدد العشري على 2 ونُسجّل باقي القسمة (0 أو 1)، ونستمر حتى يصبح الناتج 0. نقرأ البواقي من الأسفل إلى الأعلى (من اليسار إلى اليمين بالإنجليزية).</p>\n<ul><li><strong>مثال:</strong> تحويل <span class=\"math\">(13)_{10}</span> إلى ثنائي:</li><li><span class=\"math\">13 \\div 2 = 6</span> والباقي <strong>1</strong></li><li><span class=\"math\">6 \\div 2 = 3</span> والباقي <strong>0</strong></li><li><span class=\"math\">3 \\div 2 = 1</span> والباقي <strong>1</strong></li><li><span class=\"math\">1 \\div 2 = 0</span> والباقي <strong>1</strong></li><li><strong>النتيجة:</strong> <span class=\"math\">(13)_{10} = (1101)_2</span></li></ul>\n<h3>ب) من الثنائي إلى العشري (طريقة الأوزان)</h3>\n<p>نضرب كل بت ثنائي في وزن خانته المقابلة (<span class=\"math\">2^{\\text{position}}</span>) ثم نجمع النواتج.</p>\n<ul><li><strong>مثال:</strong> تحويل <span class=\"math\">(10110)_2</span> إلى عشري:</li><li><span class=\"math\">(0 \\times 2^0) + (1 \\times 2^1) + (1 \\times 2^2) + (0 \\times 2^3) + (1 \\times 2^4)</span></li><li><span class=\"math\">= (0 \\times 1) + (1 \\times 2) + (1 \\times 4) + (0 \\times 8) + (1 \\times 16) = 0 + 2 + 4 + 0 + 16 = (22)_{10}</span></li></ul>\n<h3>ج) من الثنائي إلى الست عشري (المجموعات الرباعية)</h3>\n<p>نُقسّم السلسلة الثنائية إلى مجموعات تضم كل منها 4 بتات (بدءاً من اليمين)، ونحوّل كل مجموعة إلى رمزها الست عشري.</p>\n<ul><li><strong>مثال:</strong> تحويل <span class=\"math\">(11010111)_2</span> إلى ست عشري:</li><li>المجموعة الأولى (اليمين): <span class=\"math\">0111 = (1 \\times 1) + (1 \\times 2) + (1 \\times 4) + (0 \\times 8) = 7</span></li><li>المجموعة الثانية (اليسار): <span class=\"math\">1101 = (1 \\times 1) + (0 \\times 2) + (1 \\times 4) + (1 \\times 8) = 13 \\rightarrow \\text{الحرف } D</span></li><li><strong>النتيجة:</strong> <span class=\"math\">(11010111)_2 = (D7)_{16}</span></li></ul>",
     "exercises": [
       {
         "type": "exercise",
         "title": "تمرين 1: حوّل العدد العشري $(25)_{10}$ إلى النظام الثنائي.",
-        "content": "<p><strong>خطوات الحل:</strong></p>\n<ol><li><span class=\"math\">25 \\div 2 = 12</span> والباقي <strong>1</strong></li><li><span class=\"math\">12 \\div 2 = 6</span> والباقي <strong>0</strong></li><li><span class=\"math\">6 \\div 2 = 3</span> والباقي <strong>0</strong></li><li><span class=\"math\">3 \\div 2 = 1</span> والباقي <strong>1</strong></li><li><span class=\"math\">1 \\div 2 = 0</span> والباقي <strong>1</strong></li></ol>\n<p>*كتابة البواقي من الأسفل للأعلى (يسار ليمين):*</p>\n<ul><li><strong>الناتج النهائي:</strong> <span class=\"math\">(25)_{10} = (11001)_2</span></li></ul>"
+        "content": "<p><strong>خطوات الحل:</strong></p>\n<ol><li><span class=\"math\">25 \\div 2 = 12</span> والباقي <strong>1</strong></li><li><span class=\"math\">12 \\div 2 = 6</span> والباقي <strong>0</strong></li><li><span class=\"math\">6 \\div 2 = 3</span> والباقي <strong>0</strong></li><li><span class=\"math\">3 \\div 2 = 1</span> والباقي <strong>1</strong></li><li><span class=\"math\">1 \\div 2 = 0</span> والباقي <strong>1</strong></li></ol>\n<p>كتابة البواقي من الأسفل للأعلى (يسار ليمين):</p>\n<p><strong>الناتج النهائي:</strong> <span class=\"math\">(25)_{10} = (11001)_2</span></p>"
       },
       {
         "type": "exercise",
         "title": "تمرين 2: حوّل العدد الثنائي $(11101)_2$ إلى النظام العشري.",
-        "content": "<p><strong>خطوات الحل:</strong></p>\n<pre class=\"math-block\"><code>(11101)_2 &amp;= (1 \\times 2^0) + (0 \\times 2^1) + (1 \\times 2^2) + (1 \\times 2^3) + (1 \\times 2^4) \\\\\n&amp;= (1 \\times 1) + (0 \\times 2) + (1 \\times 4) + (1 \\times 8) + (1 \\times 16) \\\\\n&amp;= 1 + 0 + 4 + 8 + 16 = (29)_{10}\n\\end{aligned}$$\n* **الناتج النهائي:** $(11101)_2 = (29)_{10}$</code></pre>"
+        "content": "<p><strong>خطوات الحل:</strong></p>\n<pre class=\"math-block\"><code>(11101)_2 &amp;= (1 \\times 2^0) + (0 \\times 2^1) + (1 \\times 2^2) + (1 \\times 2^3) + (1 \\times 2^4) \\\\\n&amp;= (1 \\times 1) + (0 \\times 2) + (1 \\times 4) + (1 \\times 8) + (1 \\times 16) \\\\\n&amp;= 1 + 0 + 4 + 8 + 16 = (29)_{10}\n\\end{aligned}$$\n**الناتج النهائي:** $(11101)_2 = (29)_{10}$</code></pre>"
       },
       {
         "type": "exercise",
         "title": "تمرين 3: حوّل العدد الست عشري $(2F)_{16}$ إلى النظام الثنائي.",
-        "content": "<p><strong>خطوات الحل:</strong> نفك كل رمز ست عشري إلى مجموعة من 4 بتات ثنائية:</p>\n<ul><li>الرقم <span class=\"math\">2</span> بالثنائي (على 4 خانات) = <span class=\"math\">0010</span></li><li>الرمز <span class=\"math\">F</span> (قيمته 15) بالثنائي (على 4 خانات) = <span class=\"math\">1111</span></li><li><strong>الناتج النهائي:</strong> <span class=\"math\">(2F)_{16} = (00101111)_2</span> أو <span class=\"math\">(101111)_2</span></li></ul>\n<hr>"
+        "content": "<p><strong>خطوات الحل:</strong></p>\n<p>نفك كل رمز ست عشري إلى مجموعة من 4 بتات ثنائية:</p>\n<ul><li>الرقم <span class=\"math\">2</span> بالثنائي (على 4 خانات) = <span class=\"math\">0010</span></li><li>الرمز <span class=\"math\">F</span> (قيمته 15) بالثنائي (على 4 خانات) = <span class=\"math\">1111</span></li></ul>\n<p><strong>الناتج النهائي:</strong> <span class=\"math\">(2F)_{16} = (00101111)_2</span> أو <span class=\"math\">(101111)_2</span></p>\n<hr>"
       }
     ],
     "questions": [

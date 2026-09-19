@@ -36,8 +36,7 @@
         }
       });
     </script>
-  <link rel="stylesheet" href="/assets/css/auth.css" />
-  <style>.profile-container{padding:var(--spacing-2xl) 0}.profile-header-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--spacing-xl);align-items:center;gap:var(--spacing-lg);margin-bottom:var(--spacing-2xl);box-shadow:var(--shadow-md);display:flex}.profile-page-avatar{border:3px solid var(--color-primary-soft);object-fit:cover;background:var(--color-surface-muted);border-radius:50%;width:96px;height:96px}.profile-info h1{font-family:var(--font-display-ar);margin-bottom:4px;font-size:1.6rem;font-weight:800}.profile-info p{color:var(--color-text-secondary);margin-bottom:var(--spacing-md);font-size:.95rem}.profile-stats h2{font-family:var(--font-display-ar);margin-bottom:var(--spacing-lg);color:var(--color-primary);font-size:1.2rem}.profile-stats .stats-grid{gap:var(--spacing-md);grid-template-columns:repeat(auto-fill,minmax(260px,1fr));display:grid}.profile-stats .stat-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--spacing-md)}.profile-stats .stat-card h4{margin-bottom:var(--spacing-sm);color:var(--color-text);font-size:.95rem;font-weight:700}.stat-details{justify-content:space-between;align-items:center;margin-bottom:6px;display:flex}.score-value{color:var(--color-primary);font-size:1.3rem;font-weight:800}.score-pct{color:var(--color-text-muted);margin-right:6px;font-size:.85rem}.stat-status{border-radius:var(--radius-full);padding:3px 10px;font-size:.78rem;font-weight:700}.status-pass{background:var(--color-success-bg);color:var(--color-success)}.status-fail{background:var(--color-error-bg);color:var(--color-error)}.stat-date{color:var(--color-text-muted);font-size:.75rem}.empty-state{color:var(--color-text-muted);text-align:center;padding:var(--spacing-xl)}</style>
+  <style>.profile-page{min-height:calc(100vh - var(--header-height));background:var(--color-bg);padding:48px 0 80px}.profile-wrap{max-width:860px;padding:0 var(--spacing-lg);flex-direction:column;gap:32px;margin:0 auto;display:flex}.profile-alert{border-radius:var(--radius-md);padding:14px 18px;font-size:.95rem;font-weight:500;display:none}.profile-alert.show{display:block}.profile-alert.success{background:var(--color-success-bg);color:var(--color-success);border:1px solid var(--color-success)}.profile-alert.error{background:var(--color-error-bg);color:var(--color-error);border:1px solid var(--color-error)}.profile-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);align-items:flex-start;gap:32px;padding:36px;display:flex}@media (width<=600px){.profile-card{text-align:center;flex-direction:column;align-items:center;gap:20px;padding:28px 20px}.profile-actions{justify-content:center}}.avatar-zone{flex-shrink:0;position:relative}.avatar-img{object-fit:cover;border:2px solid var(--color-border);background:var(--color-surface-muted);border-radius:50%;width:108px;height:108px;transition:filter .25s;display:block}.avatar-zone.edit-mode .avatar-img{filter:brightness(.6);cursor:pointer}.avatar-upload-overlay{cursor:pointer;opacity:0;pointer-events:none;border-radius:50%;justify-content:center;align-items:center;transition:opacity .25s;display:flex;position:absolute;inset:0}.avatar-zone.edit-mode .avatar-upload-overlay{opacity:1;pointer-events:all}.avatar-upload-overlay svg{color:#fff;filter:drop-shadow(0 1px 2px #0006)}.profile-info{flex:1;min-width:0}.profile-name{font-family:var(--font-display-ar);color:var(--color-text);letter-spacing:-.02em;margin:0 0 6px;font-size:1.7rem;font-weight:800;line-height:1.2}.profile-username{font-family:var(--font-mono);color:var(--color-text-secondary);background:var(--color-surface-muted);border-radius:var(--radius-full);direction:ltr;margin-bottom:6px;padding:3px 10px;font-size:.82rem;font-weight:500;display:inline-block}.profile-email{color:var(--color-text-muted);margin:0 0 24px;font-size:.92rem}.profile-actions{flex-wrap:wrap;gap:10px;display:flex}.btn-edit{border-radius:var(--radius-sm);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text);cursor:pointer;align-items:center;gap:6px;padding:9px 20px;font-size:.9rem;font-weight:600;transition:all .2s;display:inline-flex}.btn-edit:hover{background:var(--color-surface-muted);border-color:var(--color-primary);color:var(--color-primary)}.btn-logout{border-radius:var(--radius-sm);color:var(--color-text-muted);cursor:pointer;background:0 0;border:none;align-items:center;gap:6px;padding:9px 20px;font-size:.9rem;font-weight:600;transition:all .2s;display:inline-flex}.btn-logout:hover{color:var(--color-error);background:var(--color-error-bg)}.edit-form-card{background:var(--color-surface);border:1px solid var(--color-primary);border-radius:var(--radius-xl);padding:32px;display:none}.edit-form-card.open{display:block}.edit-form-title{font-family:var(--font-display-ar);color:var(--color-text);border-bottom:1px solid var(--color-border);margin:0 0 24px;padding-bottom:16px;font-size:1.1rem;font-weight:700}.edit-fields{grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;display:grid}@media (width<=600px){.edit-fields{grid-template-columns:1fr}}.field-group{flex-direction:column;gap:6px;display:flex}.field-label{color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;font-size:.8rem;font-weight:600}.field-input{border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-bg);width:100%;color:var(--color-text);box-sizing:border-box;padding:11px 14px;font-family:inherit;font-size:.95rem;transition:border-color .2s,box-shadow .2s}.field-input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-soft);outline:none}.field-input:disabled{opacity:.5;cursor:not-allowed;background:var(--color-surface-muted)}.edit-form-footer{align-items:center;gap:10px;display:flex}.btn-save{border-radius:var(--radius-sm);background:var(--color-primary);color:#fff;cursor:pointer;border:none;align-items:center;gap:8px;padding:10px 24px;font-size:.9rem;font-weight:700;transition:opacity .2s;display:inline-flex}.btn-save:hover{opacity:.88}.btn-save:disabled{opacity:.5;cursor:not-allowed}.btn-cancel-edit{border-radius:var(--radius-sm);border:1px solid var(--color-border);color:var(--color-text-secondary);cursor:pointer;background:0 0;padding:10px 18px;font-size:.9rem;font-weight:600;transition:all .2s}.btn-cancel-edit:hover{background:var(--color-surface-muted);color:var(--color-text)}.save-spinner{border:2px solid #ffffff4d;border-top-color:#fff;border-radius:50%;width:16px;height:16px;animation:.7s linear infinite spin;display:none}@keyframes spin{to{transform:rotate(360deg)}}.stats-title{font-family:var(--font-display-ar);color:var(--color-text);letter-spacing:-.01em;margin:0 0 20px;font-size:1.15rem;font-weight:800}.stats-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;display:grid}.stat-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);flex-direction:column;gap:14px;padding:24px;transition:border-color .2s,transform .25s;display:flex}.stat-card:hover{border-color:var(--color-primary-soft);transform:translateY(-2px)}.stat-lesson-name{font-family:var(--font-display-ar);color:var(--color-text);font-size:.95rem;font-weight:700;line-height:1.4}.stat-score-row{align-items:baseline;gap:8px;display:flex}.stat-score-main{font-family:var(--font-mono);color:var(--color-text);letter-spacing:-.04em;font-size:2rem;font-weight:800;line-height:1}.stat-score-pct{color:var(--color-text-muted);font-size:.85rem}.stat-bottom{border-top:1px solid var(--color-border);justify-content:space-between;align-items:center;padding-top:12px;display:flex}.stat-date{color:var(--color-text-muted);font-size:.78rem;font-family:var(--font-mono)}.stat-badge{border-radius:var(--radius-full);align-items:center;gap:5px;padding:3px 10px;font-size:.75rem;font-weight:700;display:inline-flex}.stat-badge:before{content:"";background:currentColor;border-radius:50%;width:5px;height:5px}.stat-badge.pass{color:var(--color-success);background:var(--color-success-bg)}.stat-badge.fail{color:var(--color-error);background:var(--color-error-bg)}.stats-empty{text-align:center;color:var(--color-text-muted);border:1px dashed var(--color-border);border-radius:var(--radius-lg);grid-column:1/-1;padding:64px 24px;font-size:.95rem}.stats-empty svg{opacity:.3;margin:0 auto 16px;display:block}.stats-loading{text-align:center;color:var(--color-text-muted);grid-column:1/-1;padding:40px}</style>
 </head>
 <body>
     <header class="site-header" id="site-header">
@@ -56,14 +55,6 @@
           </div>
         </a>
         <nav class="header-nav">
-          <a href="#how-it-works" class="nav-link nav-link-how" id="nav-how-it-works">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-              <line x1="12" y1="17" x2="12.01" y2="17"/>
-            </svg>
-            كيف تستخدم المنصة؟
-          </a>
   
           <!-- Auth Container -->
           <div id="auth-container" class="auth-container">
@@ -82,23 +73,99 @@
       </div>
     </header>
 
-  <main id="profile-view">
-    <div class="container profile-container">
-      <div class="profile-header-card" data-reveal>
-        <img src="/assets/images/default-avatar.svg" alt="Profile" id="profile-page-avatar" class="profile-page-avatar">
+  <main class="profile-page">
+    <div class="profile-wrap">
+
+      <!-- Alert -->
+      <div id="profile-alert" class="profile-alert" role="alert"></div>
+
+      <!-- Identity Card -->
+      <div class="profile-card" id="profile-card" data-reveal>
+
+        <!-- Avatar -->
+        <div class="avatar-zone" id="avatar-zone">
+          <img id="profile-page-avatar"
+               src="/assets/images/default-avatar.svg"
+               alt="صورة الملف الشخصي"
+               class="avatar-img">
+          <label for="avatar-file-input" class="avatar-upload-overlay" title="تغيير الصورة">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </label>
+          <input type="file" id="avatar-file-input" accept="image/png,image/jpeg,image/webp" style="display:none;">
+        </div>
+
+        <!-- Info -->
         <div class="profile-info">
-          <h1 id="profile-page-name">جاري التحميل...</h1>
-          <p id="profile-page-email">يرجى الانتظار</p>
-          <button class="btn btn-secondary btn-sm" id="btn-logout" type="button">تسجيل الخروج</button>
+          <h1 class="profile-name" id="profile-page-name">—</h1>
+          <span class="profile-username" id="profile-page-username">@—</span>
+          <p class="profile-email" id="profile-page-email">—</p>
+
+          <div class="profile-actions">
+            <button class="btn-edit" id="btn-edit-profile" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              تعديل الملف الشخصي
+            </button>
+            <button class="btn-logout" id="btn-logout" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              تسجيل الخروج
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="profile-stats" data-reveal>
-        <h2>إحصائيات الاختبارات</h2>
-        <div class="stats-grid" id="profile-stats-grid">
-          <p class="empty-state">لم تقم بإجراء أي اختبارات بعد.</p>
-        </div>
+      <!-- Edit Form (hidden by default, shown when edit mode active) -->
+      <div class="edit-form-card" id="edit-form-card" data-reveal>
+        <p class="edit-form-title">إعدادات الحساب</p>
+        <form id="profile-edit-form" novalidate>
+          <div class="edit-fields">
+            <div class="field-group">
+              <label class="field-label" for="edit-name">الاسم الكامل</label>
+              <input class="field-input" type="text" id="edit-name"
+                     placeholder="أدخل اسمك" required minlength="2">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="edit-username">اسم المستخدم</label>
+              <input class="field-input" type="text" id="edit-username"
+                     disabled title="لا يمكن تغيير اسم المستخدم">
+            </div>
+            <div class="field-group" style="grid-column: 1 / -1;">
+              <label class="field-label" for="edit-email">البريد الإلكتروني</label>
+              <input class="field-input" type="email" id="edit-email"
+                     placeholder="name@example.com" required>
+            </div>
+          </div>
+          <div class="edit-form-footer">
+            <button class="btn-save" id="btn-save-profile" type="submit">
+              <span class="save-spinner" id="save-spinner"></span>
+              حفظ التغييرات
+            </button>
+            <button class="btn-cancel-edit" id="btn-cancel-edit" type="button">إلغاء</button>
+          </div>
+        </form>
       </div>
+
+      <!-- Stats Section -->
+      <section class="stats-section" data-reveal>
+        <h2 class="stats-title">سجل الاختبارات</h2>
+        <div class="stats-grid" id="profile-stats-grid">
+          <div class="stats-loading">جاري التحميل…</div>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -116,15 +183,26 @@
     <script src="/assets/js/modules/api.js"></script>
     <script src="/assets/js/modules/auth.js"></script>
     <script src="/assets/js/modules/scroll-reveal.js"></script>
+
   <script src="/assets/js/data/lessons.js"></script>
   <script src="/assets/js/modules/profile.js"></script>
+
   <script>
+    /* Redirect if not logged in */
     document.addEventListener('DOMContentLoaded', () => {
+      /* Init scroll reveal — profile page bypasses main.js which only runs on home */
+      if (window.ScrollReveal) {
+        ScrollReveal.init();
+      } else {
+        /* Safety fallback: force-reveal everything if module unavailable */
+        document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('revealed'));
+      }
+
       setTimeout(() => {
         if (!localStorage.getItem('quinzy_token')) {
           window.location.href = '/login.html';
         }
-      }, 300);
+      }, 350);
     });
   </script>
 </body>

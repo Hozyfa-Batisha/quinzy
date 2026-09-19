@@ -96,6 +96,39 @@
   gap: 10px;
 }
 
+.auth-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-avatar-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 0;
+  background: var(--color-surface-muted);
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition), transform var(--transition-bounce), box-shadow var(--transition);
+  flex-shrink: 0;
+}
+
+.profile-avatar-btn:hover {
+  border-color: var(--color-primary);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-sm);
+}
+
+#profile-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .nav-link {
   position: relative;
   display: inline-flex;

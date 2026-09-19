@@ -20,8 +20,9 @@ const Auth = {
     try {
       const user = await window.API.getMe();
       this.setCurrentUser(user);
-      if (window.Profile && document.getElementById('profile-stats-grid')) {
-        window.Profile.render();
+      // If on the profile page, load full profile content
+      if (window.Profile && document.getElementById('profile-page-avatar')) {
+        window.Profile.onUserLoaded();
       }
     } catch {
       window.API.clearToken();
@@ -136,15 +137,16 @@ const Auth = {
   async handleLogin() {
     this.clearAlert();
 
-    const email = document.getElementById('login-email')?.value.trim();
+    const loginIdentifier = document.getElementById('login-email')?.value.trim();
     const password = document.getElementById('login-password')?.value;
 
     this.markInvalid('login-email', false);
     this.markInvalid('login-password', false);
 
-    if (!email || !this.validateEmail(email)) {
+    const isEmail = loginIdentifier?.includes('@');
+    if (!loginIdentifier || (isEmail && !this.validateEmail(loginIdentifier)) || (!isEmail && loginIdentifier.length < 3)) {
       this.markInvalid('login-email', true);
-      this.showAlert('يرجى إدخال بريد إلكتروني صحيح.');
+      this.showAlert('يرجى إدخال بريد إلكتروني صحيح أو اسم مستخدم صحيح.');
       return;
     }
 
@@ -157,7 +159,7 @@ const Auth = {
     this.setLoading('login-submit', true);
 
     try {
-      const user = await window.API.login(email, password);
+      const user = await window.API.login(loginIdentifier, password);
       this.setCurrentUser(user);
       this.showToast('تم تسجيل الدخول بنجاح', 'success');
       setTimeout(() => { window.location.href = '/profile.html'; }, 400);
@@ -171,18 +173,18 @@ const Auth = {
   async handleRegister() {
     this.clearAlert();
 
-    const name = document.getElementById('register-name')?.value.trim();
+    const username = document.getElementById('register-username')?.value.trim();
     const email = document.getElementById('register-email')?.value.trim();
     const password = document.getElementById('register-password')?.value;
     const confirm = document.getElementById('register-password-confirm')?.value;
 
-    ['register-name', 'register-email', 'register-password', 'register-password-confirm'].forEach((id) => {
+    ['register-username', 'register-email', 'register-password', 'register-password-confirm'].forEach((id) => {
       this.markInvalid(id, false);
     });
 
-    if (!name || name.length < 2) {
-      this.markInvalid('register-name', true);
-      this.showAlert('يرجى إدخال اسم صحيح (حرفان على الأقل).');
+    if (!username || username.length < 3 || !/^[a-zA-Z0-9_]+$/.test(username)) {
+      this.markInvalid('register-username', true);
+      this.showAlert('يرجى إدخال اسم مستخدم صحيح (3 أحرف على الأقل، حروف وأرقام إنجليزية فقط).');
       return;
     }
 
@@ -207,7 +209,7 @@ const Auth = {
     this.setLoading('register-submit', true);
 
     try {
-      await window.API.register(name, email, password);
+      await window.API.register(username, email, password);
       const user = await window.API.login(email, password);
       this.setCurrentUser(user);
       this.showAlert('تم إنشاء حسابك بنجاح! جاري تحويلك...', 'success');
@@ -239,13 +241,15 @@ const Auth = {
 
       const pageAvatar = document.getElementById('profile-page-avatar');
       const pageName = document.getElementById('profile-page-name');
+      const pageUsername = document.getElementById('profile-page-username');
       const pageEmail = document.getElementById('profile-page-email');
 
       if (pageAvatar) {
         pageAvatar.src = this.currentUser.picture || this.DEFAULT_AVATAR;
         pageAvatar.onerror = () => { pageAvatar.src = this.DEFAULT_AVATAR; };
       }
-      if (pageName) pageName.textContent = this.currentUser.name || 'مستخدم';
+      if (pageName) pageName.textContent = this.currentUser.name || this.currentUser.username || 'مستخدم';
+      if (pageUsername) pageUsername.textContent = `@${this.currentUser.username || 'user'}`;
       if (pageEmail) pageEmail.textContent = this.currentUser.email || '';
     } else {
       if (btnLogin) btnLogin.style.display = 'inline-flex';
