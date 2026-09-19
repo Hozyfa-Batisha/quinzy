@@ -53,30 +53,37 @@ const authenticateToken = (req, res, next) => {
  * Register a new user with email and password
  */
 app.post('/api/auth/register', async (req, res) => {
-  const name = String(req.body.name || '').trim();
+  const username = String(req.body.username || '').trim().toLowerCase();
   const email = normalizeEmail(req.body.email);
   const password = String(req.body.password || '');
 
-  if (!name || !email || !password || !isValidEmail(email)) {
+  if (!username || !email || !password || !isValidEmail(email)) {
     return res.status(400).json({ error: 'All fields are required' });
   }
-  if (name.length < 2 || password.length < 6) {
+  if (username.length < 3 || !/^[a-z0-9_]+$/.test(username)) {
+    return res.status(400).json({ error: 'Invalid username. Use 3+ alphanumeric characters or underscores.' });
+  }
+  if (password.length < 6) {
     return res.status(400).json({ error: 'Invalid registration details' });
   }
 
   try {
-    // Check if user already exists
-    const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
-    if (existingUser) {
+    // Check if user already exists (email or username)
+    const existingEmail = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+    if (existingEmail) {
       return res.status(409).json({ error: 'Email already registered' });
+    }
+    const existingUser = await db.get('SELECT * FROM users WHERE username = ?', [username]);
+    if (existingUser) {
+      return res.status(409).json({ error: 'Username already taken' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const userId = crypto.randomUUID();
 
     await db.run(
-      'INSERT INTO users (id, email, name, password) VALUES (?, ?, ?, ?)',
-      [userId, email, name, hashedPassword]
+      'INSERT INTO users (id, username, email, name, password) VALUES (?, ?, ?, ?, ?)',
+      [userId, username, email, username, hashedPassword]
     );
 
     res.status(201).json({ success: true, message: 'Registration successful' });
@@ -91,17 +98,17 @@ app.post('/api/auth/register', async (req, res) => {
  * Login with email and password
  */
 app.post('/api/auth/login', async (req, res) => {
-  const email = normalizeEmail(req.body.email);
+  const loginIdentifier = normalizeEmail(req.body.email); // Could be username or email
   const password = String(req.body.password || '');
 
-  if (!email || !password || !isValidEmail(email)) {
-    return res.status(400).json({ error: 'Email and password are required' });
+  if (!loginIdentifier || !password) {
+    return res.status(400).json({ error: 'Email/Username and password are required' });
   }
 
   try {
-    const user = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+    const user = await db.get('SELECT * FROM users WHERE email = ? OR username = ?', [loginIdentifier, loginIdentifier]);
     if (!user) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     if (!user.password) {
@@ -110,13 +117,13 @@ app.post('/api/auth/login', async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     // Generate local JWT token
-    const token = jwt.sign({ id: user.id, email: user.email, name: user.name, picture: user.picture }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: user.id, username: user.username, email: user.email, name: user.name, picture: user.picture }, JWT_SECRET, { expiresIn: '7d' });
     
-    res.json({ token, user: { id: user.id, email: user.email, name: user.name, picture: user.picture } });
+    res.json({ token, user: { id: user.id, username: user.username, email: user.email, name: user.name, picture: user.picture } });
   } catch (error) {
     console.error('Login Error:', error);
     res.status(500).json({ error: 'Server error during login' });
@@ -145,10 +152,14 @@ app.post('/api/auth/google', async (req, res) => {
 
     // Insert or update user in SQLite
     const existingUser = await db.get('SELECT * FROM users WHERE id = ?', [googleId]);
+    let username = existingUser?.username;
+
     if (!existingUser) {
+      // Auto-generate username from email prefix
+      username = email.split('@')[0].replace(/[^a-z0-9_]/g, '') + Math.floor(Math.random() * 1000);
       await db.run(
-        'INSERT INTO users (id, email, name, picture) VALUES (?, ?, ?, ?)',
-        [googleId, email, name, picture]
+        'INSERT INTO users (id, username, email, name, picture) VALUES (?, ?, ?, ?, ?)',
+        [googleId, username, email, name, picture]
       );
     } else {
       await db.run(
@@ -158,9 +169,9 @@ app.post('/api/auth/google', async (req, res) => {
     }
 
     // Generate local JWT token
-    const token = jwt.sign({ id: googleId, email, name, picture }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: googleId, username, email, name, picture }, JWT_SECRET, { expiresIn: '7d' });
     
-    res.json({ token, user: { id: googleId, email, name, picture } });
+    res.json({ token, user: { id: googleId, username, email, name, picture } });
   } catch (error) {
     console.error('Google Auth Error:', error);
     res.status(401).json({ error: 'Invalid Google token' });
@@ -173,11 +184,48 @@ app.post('/api/auth/google', async (req, res) => {
  */
 app.get('/api/me', authenticateToken, async (req, res) => {
   try {
-    const user = await db.get('SELECT id, email, name, picture FROM users WHERE id = ?', [req.user.id]);
+    const user = await db.get('SELECT id, username, email, name, picture FROM users WHERE id = ?', [req.user.id]);
     if (!user) return res.status(404).json({ error: 'User not found' });
     res.json(user);
   } catch (error) {
     res.status(500).json({ error: 'Database error' });
+  }
+});
+
+/**
+ * Endpoint: PUT /api/me
+ * Updates current authenticated user's profile info.
+ */
+app.put('/api/me', authenticateToken, async (req, res) => {
+  const name = String(req.body.name || '').trim();
+  const email = normalizeEmail(req.body.email);
+  const picture = req.body.picture || null; // Can be base64 or URL
+
+  if (!name || !email || !isValidEmail(email)) {
+    return res.status(400).json({ error: 'Name and a valid email are required' });
+  }
+
+  try {
+    // Check if new email is taken by someone else
+    const existingEmail = await db.get('SELECT id FROM users WHERE email = ? AND id != ?', [email, req.user.id]);
+    if (existingEmail) {
+      return res.status(409).json({ error: 'Email already in use' });
+    }
+
+    await db.run(
+      'UPDATE users SET name = ?, email = ?, picture = ? WHERE id = ?',
+      [name, email, picture, req.user.id]
+    );
+
+    const user = await db.get('SELECT id, username, email, name, picture FROM users WHERE id = ?', [req.user.id]);
+    
+    // Generate new local JWT token to reflect changes
+    const token = jwt.sign({ id: user.id, username: user.username, email: user.email, name: user.name, picture: user.picture }, JWT_SECRET, { expiresIn: '7d' });
+    
+    res.json({ success: true, token, user });
+  } catch (error) {
+    console.error('Update Profile Error:', error);
+    res.status(500).json({ error: 'Server error during profile update' });
   }
 });
 

@@ -18,6 +18,7 @@ const ready = new Promise((resolve, reject) => db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id TEXT PRIMARY KEY,
+      username TEXT UNIQUE,
       email TEXT UNIQUE NOT NULL,
       name TEXT,
       picture TEXT,
@@ -41,17 +42,24 @@ const ready = new Promise((resolve, reject) => db.serialize(() => {
     )
   `);
 
-  // Migrate databases created before password was part of the schema.
+  // Migrate databases created before password or username was part of the schema.
   db.all(`PRAGMA table_info(users)`, (err, columns = []) => {
     if (err) return reject(err);
-    if (!columns.some((column) => column.name === 'password')) {
-      db.run(`ALTER TABLE users ADD COLUMN password TEXT`, (migrationError) => {
-        if (migrationError) reject(migrationError);
-        else resolve();
-      });
-    } else {
-      resolve();
+    
+    const hasPassword = columns.some((column) => column.name === 'password');
+    const hasUsername = columns.some((column) => column.name === 'username');
+    
+    const migrations = [];
+    if (!hasPassword) {
+      migrations.push(new Promise((res, rej) => db.run(`ALTER TABLE users ADD COLUMN password TEXT`, (e) => e ? rej(e) : res())));
     }
+    if (!hasUsername) {
+      migrations.push(new Promise((res, rej) => db.run(`ALTER TABLE users ADD COLUMN username TEXT`, (e) => e ? rej(e) : res())));
+    }
+    
+    Promise.all(migrations)
+      .then(() => resolve())
+      .catch(reject);
   });
 }));
 

@@ -77,10 +77,10 @@ const API = {
     return data.user;
   },
 
-  async register(name, email, password) {
+  async register(username, email, password) {
     return this.request('/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ username, email, password }),
     });
   },
 
@@ -95,6 +95,13 @@ const API = {
 
   async getMe() {
     return this.request('/me');
+  },
+
+  async updateProfile(data) {
+    return this.request('/me', {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
   },
 
   async getProgress() {
