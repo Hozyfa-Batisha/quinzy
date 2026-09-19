@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-APP_DIR="${APP_DIR:-/opt/quinzy}"
+APP_DIR="${APP_DIR:-/docker/quinzy}"
 BRANCH="${BRANCH:-main}"
 
 cd "$APP_DIR"

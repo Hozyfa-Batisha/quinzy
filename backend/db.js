@@ -11,8 +11,9 @@ if (!fs.existsSync(dataDir)) {
 const dbPath = path.join(dataDir, 'database.sqlite');
 const db = new sqlite3.Database(dbPath);
 
-// Initialize schema
-db.serialize(() => {
+// Initialize schema before accepting requests. This prevents old databases
+// from racing the first registration while the password migration is queued.
+const ready = new Promise((resolve, reject) => db.serialize(() => {
   // Users table
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -20,6 +21,7 @@ db.serialize(() => {
       email TEXT UNIQUE NOT NULL,
       name TEXT,
       picture TEXT,
+      password TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
@@ -38,10 +40,24 @@ db.serialize(() => {
       UNIQUE(user_id, lesson_id)
     )
   `);
-});
+
+  // Migrate databases created before password was part of the schema.
+  db.all(`PRAGMA table_info(users)`, (err, columns = []) => {
+    if (err) return reject(err);
+    if (!columns.some((column) => column.name === 'password')) {
+      db.run(`ALTER TABLE users ADD COLUMN password TEXT`, (migrationError) => {
+        if (migrationError) reject(migrationError);
+        else resolve();
+      });
+    } else {
+      resolve();
+    }
+  });
+}));
 
 module.exports = {
   db,
+  ready,
   
   // Promisify queries for easier async/await usage
   get: (query, params = []) => {

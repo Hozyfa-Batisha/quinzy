@@ -10,9 +10,19 @@
     "questionsFile": "Done/IT Evolution/it-evolution-questions.md"
   },
   {
-    "id": "numbering-systems",
+    "id": "first-lecture-programming",
     "category": "technical",
     "order": 1,
+    "titleAr": "من المشكلة إلى البرنامج",
+    "titleEn": "From Problem to Program",
+    "description": "فهم ماهية البرمجة والخوارزميات، الإدخال والمعالجة والمخرجات، وكتابة أول برنامج بايثون.",
+    "summaryFile": "Done/First Lecture Programming/first-lecture-programming-summary.md",
+    "questionsFile": "Done/First Lecture Programming/first-lecture-programming-questions.md"
+  },
+  {
+    "id": "numbering-systems",
+    "category": "technical",
+    "order": 2,
     "titleAr": "أنظمة العد الرقمية",
     "titleEn": "Digital Numbering Systems",
     "description": "الأنظمة العشري والثنائي والثماني والست عشري، وعمليات التحويل بينها.",

@@ -2,7 +2,7 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 
-COPY package*.json lessons.config.json vite.config.js ./
+COPY package.json lessons.config.json vite.config.js ./
 COPY scripts ./scripts
 COPY Sources ./Sources
 COPY public ./public

@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const db = require('./db');
 
 const app = express();
@@ -11,6 +13,14 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(async (_req, _res, next) => {
+  try {
+    await db.ready;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Load credentials from environment variables
 // IMPORTANT: User must set GOOGLE_CLIENT_ID in the .env file
@@ -18,6 +28,9 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID'
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-local-key';
 
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+const normalizeEmail = (email) => String(email || '').trim().toLowerCase();
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 /**
  * Middleware to verify JWT token
@@ -34,6 +47,81 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
+
+/**
+ * Endpoint: POST /api/auth/register
+ * Register a new user with email and password
+ */
+app.post('/api/auth/register', async (req, res) => {
+  const name = String(req.body.name || '').trim();
+  const email = normalizeEmail(req.body.email);
+  const password = String(req.body.password || '');
+
+  if (!name || !email || !password || !isValidEmail(email)) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+  if (name.length < 2 || password.length < 6) {
+    return res.status(400).json({ error: 'Invalid registration details' });
+  }
+
+  try {
+    // Check if user already exists
+    const existingUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+    if (existingUser) {
+      return res.status(409).json({ error: 'Email already registered' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const userId = crypto.randomUUID();
+
+    await db.run(
+      'INSERT INTO users (id, email, name, password) VALUES (?, ?, ?, ?)',
+      [userId, email, name, hashedPassword]
+    );
+
+    res.status(201).json({ success: true, message: 'Registration successful' });
+  } catch (error) {
+    console.error('Registration Error:', error);
+    res.status(500).json({ error: 'Server error during registration' });
+  }
+});
+
+/**
+ * Endpoint: POST /api/auth/login
+ * Login with email and password
+ */
+app.post('/api/auth/login', async (req, res) => {
+  const email = normalizeEmail(req.body.email);
+  const password = String(req.body.password || '');
+
+  if (!email || !password || !isValidEmail(email)) {
+    return res.status(400).json({ error: 'Email and password are required' });
+  }
+
+  try {
+    const user = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    if (!user.password) {
+      return res.status(401).json({ error: 'Please login with Google for this account' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    // Generate local JWT token
+    const token = jwt.sign({ id: user.id, email: user.email, name: user.name, picture: user.picture }, JWT_SECRET, { expiresIn: '7d' });
+    
+    res.json({ token, user: { id: user.id, email: user.email, name: user.name, picture: user.picture } });
+  } catch (error) {
+    console.error('Login Error:', error);
+    res.status(500).json({ error: 'Server error during login' });
+  }
+});
 
 /**
  * Endpoint: POST /api/auth/google

@@ -1,45 +1,10 @@
-/* ─── Dark Mode ──────────────────────────────────────────────────── */
-const ThemeManager = {
-  STORAGE_KEY: 'qp-theme',
-
-  init() {
-    const saved = localStorage.getItem(this.STORAGE_KEY);
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = saved ? saved === 'dark' : prefersDark;
-    this.apply(isDark, false);
-
-    document.getElementById('theme-toggle')?.addEventListener('click', () => {
-      const currentlyDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      this.apply(!currentlyDark, true);
-    });
-  },
-
-  apply(isDark, animate) {
-    const root = document.documentElement;
-    if (animate) {
-      root.style.transition = 'background 0.45s, color 0.45s';
-      setTimeout(() => { root.style.transition = ''; }, 500);
-    }
-    if (isDark) {
-      root.setAttribute('data-theme', 'dark');
-      localStorage.setItem(this.STORAGE_KEY, 'dark');
-      const knob = document.getElementById('theme-toggle-knob');
-      if (knob) knob.textContent = '☀️';
-    } else {
-      root.removeAttribute('data-theme');
-      localStorage.setItem(this.STORAGE_KEY, 'light');
-      const knob = document.getElementById('theme-toggle-knob');
-      if (knob) knob.textContent = '🌙';
-    }
-  },
-};
-
-/* ─── App ────────────────────────────────────────────────────────── */
+/**
+ * Main App – home page orchestrator
+ */
 const App = {
   lessons: [],
 
   init() {
-    ThemeManager.init();
     this.lessons = window.LESSON_DATA || [];
     HomeView.renderLessons(this.lessons);
     HomeView.updateStats(this.lessons);
@@ -79,10 +44,11 @@ const App = {
 
     document.getElementById('brand-link')?.addEventListener('click', (e) => {
       e.preventDefault();
-      if (!document.getElementById('lesson-view').classList.contains('hidden')) {
+      const lessonView = document.getElementById('lesson-view');
+      if (lessonView && !lessonView.classList.contains('hidden')) {
         LessonView.close();
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.location.href = '/';
       }
     });
   },
@@ -91,7 +57,8 @@ const App = {
 window.App = App;
 
 document.addEventListener('DOMContentLoaded', () => {
-  App.init();
-  ScrollReveal.init();
+  if (document.getElementById('home-view')) {
+    App.init();
+    ScrollReveal.init();
+  }
 });
-

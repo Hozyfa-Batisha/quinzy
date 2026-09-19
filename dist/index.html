@@ -13,7 +13,6 @@
       content="ملخصات منظمة واختبارات ذاتية لمنهج تكنولوجيا المعلومات — تحت إشراف بشمهندس حذيفة بطيشة" />
     <meta property="og:type" content="website" />
   
-    <!-- Fonts: Noto Kufi (headings) + Noto Naskh (body) + JetBrains Mono + Geist -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,11 +26,15 @@
     <link rel="stylesheet" href="/assets/css/components.css" />
     <link rel="stylesheet" href="/assets/css/quiz.css" />
   
-    <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-      // Replace this with your actual Google Client ID from Google Cloud Console
-      window.GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
+      window.GOOGLE_CLIENT_ID = '153746878594-1pk8uug6v1k570ie17k6ntuhg10hivai.apps.googleusercontent.com';
+      document.addEventListener('DOMContentLoaded', () => {
+        const el = document.getElementById('g_id_onload');
+        if (el && window.GOOGLE_CLIENT_ID && window.GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') {
+          el.setAttribute('data-client_id', window.GOOGLE_CLIENT_ID);
+        }
+      });
     </script>
 </head>
 <body>
@@ -51,6 +54,15 @@
           </div>
         </a>
         <nav class="header-nav">
+          <a href="#how-it-works" class="nav-link nav-link-how" id="nav-how-it-works">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            كيف تستخدم المنصة؟
+          </a>
+  
           <!-- Auth Container -->
           <div id="auth-container" class="auth-container">
             <button class="btn btn-primary btn-sm" id="btn-login" style="display: none;">
@@ -60,7 +72,6 @@
               <img src="" alt="Profile" id="profile-avatar" />
             </button>
           </div>
-  
           <button class="theme-toggle" id="theme-toggle" type="button" title="تبديل الوضع الليلي"
             aria-label="تبديل الوضع الليلي">
             <span class="theme-toggle-knob" id="theme-toggle-knob">🌙</span>
@@ -246,6 +257,7 @@
       </div>
     </footer>
   
+    <script src="/assets/js/theme.js"></script>
     <script src="/assets/js/data/lessons.js"></script>
     <script src="/assets/js/modules/api.js"></script>
     <script src="/assets/js/modules/auth.js"></script>

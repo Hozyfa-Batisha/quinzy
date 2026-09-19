@@ -93,19 +93,34 @@
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
 }
 
 .nav-link {
   position: relative;
-  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
   border-radius: var(--radius-full);
   color: var(--color-text-secondary);
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   font-family: var(--font-display-ar);
   text-decoration: none;
-  transition: color var(--transition), background var(--transition);
+  transition: color var(--transition), background var(--transition), box-shadow var(--transition), transform var(--transition);
+  overflow: hidden;
+}
+
+.nav-link svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity var(--transition), transform var(--transition-bounce);
+}
+
+.nav-link:hover svg {
+  opacity: 1;
+  transform: rotate(-8deg) scale(1.1);
 }
 
 .nav-link:hover,
@@ -113,6 +128,56 @@
   color: var(--color-primary);
   background: var(--color-primary-soft);
   text-decoration: none;
+}
+
+/* ─── "How It Works" Link – Premium Pill ─────────────────────────── */
+.nav-link-how {
+  background: var(--color-primary-soft);
+  border: 1px solid var(--color-border-light);
+  color: var(--color-primary);
+  font-weight: 700;
+  padding: 9px 20px;
+}
+
+.nav-link-how::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.nav-link-how:hover {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px var(--color-primary-glow);
+  transform: translateY(-1px);
+}
+
+.nav-link-how:hover::after {
+  transform: scaleX(0);
+}
+
+.nav-link-how:hover svg {
+  stroke: #fff;
+}
+
+[data-theme="dark"] .nav-link-how {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: rgba(56, 189, 248, 0.15);
+}
+
+[data-theme="dark"] .nav-link-how:hover {
+  background: var(--color-primary);
+  color: #0a0e17;
+  border-color: var(--color-primary);
 }
 
 /* ─── DARK MODE TOGGLE ───────────────────────────────────────────── */
