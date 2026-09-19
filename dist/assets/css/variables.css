@@ -66,6 +66,19 @@
   --content-width: 960px;
   --wide-width:    1200px;
 
+  /* Spacing scale */
+  --spacing-xs:  4px;
+  --spacing-sm:  8px;
+  --spacing-md:  16px;
+  --spacing-lg:  24px;
+  --spacing-xl:  32px;
+  --spacing-2xl: 48px;
+
+  /* Semantic aliases */
+  --font-heading:     var(--font-display-ar);
+  --color-text-dim:   var(--color-text-secondary);
+  --color-cta-dim:    var(--color-cta-soft);
+
   /* Transitions – premium cubic-bezier */
   --transition:       0.25s cubic-bezier(0.32, 0.72, 0, 1);
   --transition-slow:  0.5s cubic-bezier(0.32, 0.72, 0, 1);

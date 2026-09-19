@@ -1,8 +1,10 @@
 FROM node:22-alpine
 
+RUN apk add --no-cache python3 make g++ linux-headers
+
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json ./
 RUN npm install
 
 COPY . .

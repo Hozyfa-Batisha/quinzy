@@ -2,37 +2,80 @@
 <html lang="ar" dir="rtl">
 <head>
   {{> head title="الملف الشخصي" }}
+  <link rel="stylesheet" href="/assets/css/auth.css" />
   <style>
-    .profile-container {
-      padding: var(--spacing-2xl) 0;
-    }
+    .profile-container { padding: var(--spacing-2xl) 0; }
     .profile-header-card {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius-xl);
       padding: var(--spacing-xl);
       display: flex;
       align-items: center;
       gap: var(--spacing-lg);
       margin-bottom: var(--spacing-2xl);
+      box-shadow: var(--shadow-md);
     }
     .profile-page-avatar {
       width: 96px;
       height: 96px;
       border-radius: 50%;
-      border: 4px solid var(--color-surface-hover);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 3px solid var(--color-primary-soft);
+      object-fit: cover;
+      background: var(--color-surface-muted);
     }
     .profile-info h1 {
-      font-size: 28px;
-      font-family: var(--font-heading);
+      font-family: var(--font-display-ar);
+      font-size: 1.6rem;
+      font-weight: 800;
       margin-bottom: 4px;
     }
     .profile-info p {
-      color: var(--color-text-dim);
-      font-size: 16px;
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
       margin-bottom: var(--spacing-md);
     }
+    .profile-stats h2 {
+      font-family: var(--font-display-ar);
+      font-size: 1.2rem;
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-primary);
+    }
+    .profile-stats .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--spacing-md);
+    }
+    .profile-stats .stat-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-md);
+    }
+    .profile-stats .stat-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-text);
+    }
+    .stat-details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .score-value { font-size: 1.3rem; font-weight: 800; color: var(--color-primary); }
+    .score-pct { font-size: 0.85rem; color: var(--color-text-muted); margin-right: 6px; }
+    .stat-status {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+    }
+    .status-pass { background: var(--color-success-bg); color: var(--color-success); }
+    .status-fail { background: var(--color-error-bg); color: var(--color-error); }
+    .stat-date { font-size: 0.75rem; color: var(--color-text-muted); }
+    .empty-state { color: var(--color-text-muted); text-align: center; padding: var(--spacing-xl); }
   </style>
 </head>
 <body>
@@ -41,35 +84,33 @@
   <main id="profile-view">
     <div class="container profile-container">
       <div class="profile-header-card" data-reveal>
-        <img src="/assets/images/default-avatar.png" alt="Profile" id="profile-page-avatar" class="profile-page-avatar">
+        <img src="/assets/images/default-avatar.svg" alt="Profile" id="profile-page-avatar" class="profile-page-avatar">
         <div class="profile-info">
           <h1 id="profile-page-name">جاري التحميل...</h1>
           <p id="profile-page-email">يرجى الانتظار</p>
-          <button class="btn btn-secondary btn-sm" id="btn-logout">تسجيل الخروج</button>
+          <button class="btn btn-secondary btn-sm" id="btn-logout" type="button">تسجيل الخروج</button>
         </div>
       </div>
-      
+
       <div class="profile-stats" data-reveal>
-        <h2 style="font-family: var(--font-heading); margin-bottom: var(--spacing-lg);">إحصائيات الاختبارات</h2>
+        <h2>إحصائيات الاختبارات</h2>
         <div class="stats-grid" id="profile-stats-grid">
-          <!-- Stats will be rendered here via JS -->
           <p class="empty-state">لم تقم بإجراء أي اختبارات بعد.</p>
         </div>
       </div>
     </div>
   </main>
 
-  {{> footer }}
-  
+  {{> footer-minimal }}
+  <script src="/assets/js/data/lessons.js"></script>
+  <script src="/assets/js/modules/profile.js"></script>
   <script>
-    // Security redirect if not logged in
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
-        const token = localStorage.getItem('quinzy_token');
-        if (!token) {
+        if (!localStorage.getItem('quinzy_token')) {
           window.location.href = '/login.html';
         }
-      }, 500);
+      }, 300);
     });
   </script>
 </body>

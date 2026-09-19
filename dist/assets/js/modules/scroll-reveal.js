@@ -27,8 +27,8 @@ const ScrollReveal = {
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.05,
+        rootMargin: '0px 0px 0px 0px',
       }
     );
 
@@ -41,6 +41,13 @@ const ScrollReveal = {
       }
       observer.observe(el);
     });
+
+    /* Safety fallback: reveal any remaining hidden elements after 2s */
+    setTimeout(() => {
+      document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => {
+        el.classList.add('revealed');
+      });
+    }, 2000);
   },
 };
 

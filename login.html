@@ -1,105 +1,90 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-  {{> head title="تسجيل الدخول" }}
-  <style>
-    .login-container {
-      min-height: calc(100vh - 160px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: var(--spacing-lg);
-    }
-
-    .login-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: var(--spacing-2xl);
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .login-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--color-cta-dim);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto var(--spacing-lg);
-      color: var(--color-cta);
-    }
-
-    .login-icon svg {
-      width: 32px;
-      height: 32px;
-    }
-
-    .login-title {
-      font-size: 24px;
-      font-family: var(--font-heading);
-      margin-bottom: var(--spacing-sm);
-      color: var(--color-text);
-    }
-
-    .login-desc {
-      color: var(--color-text-dim);
-      margin-bottom: var(--spacing-xl);
-      line-height: 1.6;
-    }
-
-    .g_id_signin {
-      display: flex;
-      justify-content: center;
-      margin-top: var(--spacing-md);
-    }
-  </style>
+  {{> head title="تسجيل الدخول" authPage=true }}
 </head>
-
-<body>
+<body class="auth-page">
   {{> header }}
 
-  <main>
-    <div class="login-container">
-      <div class="login-card" data-reveal>
-        <div class="login-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </div>
-        <h1 class="login-title">أهلاً بك في Quinzy</h1>
-        <p class="login-desc">يرجى تسجيل الدخول باستخدام حساب جوجل الخاص بك لمتابعة مسار التعلم وحفظ نتائج اختباراتك.
+  <main class="auth-layout">
+    <aside class="auth-brand-panel">
+      <div class="auth-brand-content">
+        <div class="auth-brand-topline"><span class="brand-mark brand-mark-small">Q</span><span>QUINZY / 01</span></div>
+        <span class="auth-brand-badge">تعلم تكنولوجيا المعلومات بوضوح</span>
+        <h1 class="auth-brand-title">المعرفة التي<br><em>تتقدم</em> معك.</h1>
+        <p class="auth-brand-desc">
+          مكان واحد لمراجعة الدروس، اختبار فهمك، ورؤية تقدمك من أول سؤال.
         </p>
+        <ul class="auth-brand-features">
+          <li><strong>01</strong> ملخصات منظمة لمنهج IT</li>
+          <li><strong>02</strong> اختبارات قصيرة مع نتيجة فورية</li>
+          <li><strong>03</strong> تقدم محفوظ على حسابك</li>
+        </ul>
+      </div>
+    </aside>
 
-        <div id="g_id_onload" data-client_id="YOUR_GOOGLE_CLIENT_ID" data-context="signin" data-ux_mode="popup"
-          data-callback="handleCredentialResponse" data-auto_prompt="false">
-        </div>
-        <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
-          data-text="signin_with" data-size="large" data-logo_alignment="left">
+    <section class="auth-form-panel">
+      <div class="auth-card" data-reveal>
+        <a href="/" class="auth-back-link">← العودة للرئيسية</a>
+        <div class="auth-card-header">
+          <div class="auth-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+          </div>
+          <h2 class="auth-card-title">تسجيل الدخول</h2>
+          <p class="auth-card-subtitle">سجّل دخولك لمتابعة مسارك التعليمي.</p>
         </div>
 
-        <div>
-          <a href="index.html"
-            style="text-decoration: none; color: var(--color-cta); font-size: var(--font-size-sm); margin-top: var(--spacing-md); display: block;">تخطي
-            تسجيل الدخول والانتقال إلى الموقع</a>
+        <div class="auth-alert" id="auth-alert" role="alert"></div>
+
+        <form id="login-form" class="auth-form" novalidate>
+          <div class="form-field">
+            <label class="form-label" for="login-email">البريد الإلكتروني</label>
+            <input class="form-input" type="email" id="login-email" name="email"
+              placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="login-password">كلمة المرور</label>
+            <div class="password-wrap"><input class="form-input" type="password" id="login-password" name="password"
+              placeholder="••••••••" autocomplete="current-password" required minlength="6" /><button type="button" class="password-toggle" data-password-toggle="login-password">إظهار</button></div>
+          </div>
+          <button type="submit" class="btn btn-primary auth-submit" id="login-submit">
+            <span class="btn-spinner" aria-hidden="true"></span>
+            <span class="btn-label">متابعة إلى حسابي</span>
+          </button>
+        </form>
+
+        <div class="auth-divider">أو</div>
+
+        <div class="auth-google">
+          <div id="g_id_onload"
+            data-client_id=""
+            data-context="signin"
+            data-ux_mode="popup"
+            data-callback="handleCredentialResponse"
+            data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="outline"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="center">
+          </div>
+        </div>
+
+        <div class="auth-footer-links">
+          <p>ليس لديك حساب؟ <a href="/register.html">إنشاء حساب جديد</a></p>
+          <a href="/" class="auth-skip-link">تخطي والانتقال إلى المنصة</a>
         </div>
       </div>
-    </div>
+    </section>
   </main>
 
-  {{> footer }}
-
-  <script>
-    // Overwrite the Google Client ID dynamically from the environment
-    document.getElementById('g_id_onload').setAttribute('data-client_id', window.GOOGLE_CLIENT_ID);
-  </script>
+  {{> footer-minimal }}
 </body>
-
 </html>

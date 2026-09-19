@@ -10,7 +10,6 @@
     content="ملخصات منظمة واختبارات ذاتية لمنهج تكنولوجيا المعلومات — تحت إشراف بشمهندس حذيفة بطيشة" />
   <meta property="og:type" content="website" />
 
-  <!-- Fonts: Noto Kufi (headings) + Noto Naskh (body) + JetBrains Mono + Geist -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -23,10 +22,17 @@
   <link rel="stylesheet" href="/assets/css/layout.css" />
   <link rel="stylesheet" href="/assets/css/components.css" />
   <link rel="stylesheet" href="/assets/css/quiz.css" />
+  {{#if authPage}}
+  <link rel="stylesheet" href="/assets/css/auth.css" />
+  {{/if}}
 
-  <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
-    // Replace this with your actual Google Client ID from Google Cloud Console
-    window.GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
+    window.GOOGLE_CLIENT_ID = '{{env.GOOGLE_CLIENT_ID}}';
+    document.addEventListener('DOMContentLoaded', () => {
+      const el = document.getElementById('g_id_onload');
+      if (el && window.GOOGLE_CLIENT_ID && window.GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') {
+        el.setAttribute('data-client_id', window.GOOGLE_CLIENT_ID);
+      }
+    });
   </script>
