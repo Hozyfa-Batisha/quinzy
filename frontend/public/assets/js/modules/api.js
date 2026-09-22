@@ -7,6 +7,7 @@ const API = {
   ERROR_MESSAGES: {
     'All fields are required': 'جميع الحقول مطلوبة.',
     'Email already registered': 'هذا البريد الإلكتروني مسجّل مسبقاً.',
+    'Username already taken': 'اسم المستخدم مستخدم بالفعل.',
     'Invalid registration details': 'تحقق من الاسم وكلمة المرور (6 أحرف على الأقل).',
     'Email and password are required': 'البريد الإلكتروني وكلمة المرور مطلوبان.',
     'Invalid email or password': 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',

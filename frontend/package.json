@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:content": "node scripts/build-content.mjs",
+    "build:content": "node ../scripts/build-content.mjs",
     "build": "npm run build:content && vite build",
     "preview": "vite preview",
-    "serve": "npx --yes serve dist -l 3000"
+    "serve": "npx --yes serve dist -l 8080"
   },
   "devDependencies": {
     "vite": "^8.3.0",

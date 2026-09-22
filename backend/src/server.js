@@ -24,7 +24,7 @@ app.use(async (_req, _res, next) => {
 
 // Load credentials from environment variables
 // IMPORTANT: User must set GOOGLE_CLIENT_ID in the .env file
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '153746878594-1pk8uug6v1k570ie17k6ntuhg10hivai.apps.googleusercontent.com';
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-local-key';
 
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
@@ -148,30 +148,43 @@ app.post('/api/auth/google', async (req, res) => {
     });
     
     const payload = ticket.getPayload();
-    const { sub: googleId, email, name, picture } = payload;
+    const { sub: googleId, email: googleEmail, name, picture } = payload;
+    const email = normalizeEmail(googleEmail);
 
-    // Insert or update user in SQLite
-    const existingUser = await db.get('SELECT * FROM users WHERE id = ?', [googleId]);
+    if (!email || !isValidEmail(email)) {
+      return res.status(400).json({ error: 'Google account has no valid email' });
+    }
+
+    // Match by Google ID first, then by email so an existing password account
+    // is linked instead of causing a UNIQUE(email) database error.
+    const existingUser = await db.get('SELECT * FROM users WHERE id = ? OR email = ?', [googleId, email]);
+    const userId = existingUser?.id || googleId;
     let username = existingUser?.username;
 
     if (!existingUser) {
-      // Auto-generate username from email prefix
-      username = email.split('@')[0].replace(/[^a-z0-9_]/g, '') + Math.floor(Math.random() * 1000);
+      // Auto-generate a valid, available username from the email prefix.
+      const base = email.split('@')[0].toLowerCase().replace(/[^a-z0-9_]/g, '').slice(0, 24) || 'user';
+      username = base.length >= 3 ? base : `user${base}`;
+      let suffix = 0;
+      while (await db.get('SELECT id FROM users WHERE username = ?', [username])) {
+        suffix += 1;
+        username = `${base.slice(0, 24 - String(suffix).length)}${suffix}`;
+      }
       await db.run(
         'INSERT INTO users (id, username, email, name, picture) VALUES (?, ?, ?, ?, ?)',
-        [googleId, username, email, name, picture]
+        [userId, username, email, name, picture]
       );
     } else {
       await db.run(
         'UPDATE users SET name = ?, picture = ? WHERE id = ?',
-        [name, picture, googleId]
+        [name, picture, userId]
       );
     }
 
     // Generate local JWT token
-    const token = jwt.sign({ id: googleId, username, email, name, picture }, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: userId, username, email, name, picture }, JWT_SECRET, { expiresIn: '7d' });
     
-    res.json({ token, user: { id: googleId, username, email, name, picture } });
+    res.json({ token, user: { id: userId, username, email, name, picture } });
   } catch (error) {
     console.error('Google Auth Error:', error);
     res.status(401).json({ error: 'Invalid Google token' });

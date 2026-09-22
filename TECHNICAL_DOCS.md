@@ -27,24 +27,21 @@ Interactive self-assessment platform for Egyptian secondary-school IT students.
 
 ```text
 Quiz Platform/
-├── index.html                 # Home (Vite entry)
-├── login.html                 # Login page
-├── register.html              # Registration page
-├── profile.html               # User profile & stats
-├── lessons.config.json        # Lesson registry
-├── vite.config.js             # Vite + Handlebars MPA config
-├── package.json
-├── Dockerfile                 # Frontend (Nginx)
-├── nginx.conf
-│
-├── src/
+├── frontend/                  # Browser application and build output
+│   ├── index.html             # Home (Vite entry)
+│   ├── login.html             # Login page
+│   ├── register.html          # Registration page
+│   ├── profile.html           # User profile & stats
+│   ├── package.json
+│   ├── vite.config.js         # Vite + Handlebars MPA config
+│   ├── src/
 │   └── partials/              # Shared Handlebars partials
 │       ├── head.html
 │       ├── header.html
 │       ├── footer.html        # Full app scripts (home page)
 │       └── footer-minimal.html # Auth/profile scripts
 │
-├── public/                    # Static assets (copied to dist as-is)
+│   ├── public/                # Static assets (copied to dist as-is)
 │   └── assets/
 │       ├── css/               # variables, base, layout, components, quiz, auth
 │       ├── js/
@@ -58,23 +55,30 @@ Quiz Platform/
 │   ├── build-content.mjs      # Markdown → lessons.js
 │   └── deploy-server.sh
 │
-├── Sources/                   # Lesson content (Markdown)
+│   └── dist/                   # Generated frontend output
+├── content/                   # Lesson registry and Markdown content
+│   ├── lessons.config.json
+│   └── sources/
+├── infra/                     # Container and web-server configuration
+│   ├── frontend.Dockerfile
+│   └── nginx.conf
+├── scripts/                   # Build and deployment helpers
 ├── backend/
-│   ├── server.js              # Express API
-│   ├── db.js                  # SQLite schema
+│   ├── src/
+│   │   ├── server.js          # Express API
+│   │   └── db.js              # SQLite schema
 │   └── data/database.sqlite
-└── dist/                      # Production build output
 ```
 
 ---
 
 ## Content Pipeline
 
-1. Add `-summary.md` and `-questions.md` to `Sources/`
-2. Register in `lessons.config.json`
-3. Run `npm run build:content` (or `npm run build`)
+1. Add `-summary.md` and `-questions.md` to `content/sources/`
+2. Register in `content/lessons.config.json`
+3. Run `npm run build:content` (or `npm run build`) from `frontend/`
 
-Output: `public/assets/js/data/lessons.js` → `window.LESSON_DATA`
+Output: `frontend/public/assets/js/data/lessons.js` → `window.LESSON_DATA`
 
 ---
 
@@ -91,7 +95,7 @@ npm run build
 npm run dev
 
 # Backend (separate terminal)
-cd backend && npm install && node server.js
+cd backend && npm install && node src/server.js
 ```
 
 Environment variables (`.env`):
@@ -113,6 +117,6 @@ Environment variables (`.env`):
 
 ## Adding a New Lesson
 
-1. Create MD files in `Sources/`
-2. Add entry to `lessons.config.json`
+1. Create MD files in `content/sources/`
+2. Add entry to `content/lessons.config.json`
 3. Run `npm run build:content`

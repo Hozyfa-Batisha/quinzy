@@ -5,14 +5,17 @@ import handlebars from 'vite-plugin-handlebars';
 const projectDir = import.meta.dirname;
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, resolve(projectDir, '..'), '');
+  // This is a public OAuth client ID. It can be overridden per environment
+  // with GOOGLE_CLIENT_ID, while keeping local development usable.
+  const googleClientId = env.GOOGLE_CLIENT_ID || '153746878594-1pk8uug6v1k570ie17k6ntuhg10hivai.apps.googleusercontent.com';
   return {
     plugins: [
       handlebars({
         partialDirectory: resolve(projectDir, 'src/partials'),
         context: {
           env: {
-            GOOGLE_CLIENT_ID: env.GOOGLE_CLIENT_ID,
+          GOOGLE_CLIENT_ID: googleClientId,
           },
         },
       }),

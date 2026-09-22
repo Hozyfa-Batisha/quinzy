@@ -4,9 +4,9 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const SOURCES = path.join(ROOT, 'Sources');
-const OUTPUT = path.join(ROOT, 'public', 'assets', 'js', 'data', 'lessons.js');
-const CONFIG = path.join(ROOT, 'lessons.config.json');
+const SOURCES = path.join(ROOT, 'content', 'sources');
+const OUTPUT = path.join(ROOT, 'frontend', 'public', 'assets', 'js', 'data', 'lessons.js');
+const CONFIG = path.join(ROOT, 'content', 'lessons.config.json');
 
 function escapeHtml(text) {
   return text

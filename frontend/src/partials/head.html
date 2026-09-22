@@ -29,10 +29,4 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     window.GOOGLE_CLIENT_ID = '{{env.GOOGLE_CLIENT_ID}}';
-    document.addEventListener('DOMContentLoaded', () => {
-      const el = document.getElementById('g_id_onload');
-      if (el && window.GOOGLE_CLIENT_ID && window.GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID') {
-        el.setAttribute('data-client_id', window.GOOGLE_CLIENT_ID);
-      }
-    });
   </script>

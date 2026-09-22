@@ -4,7 +4,7 @@ services:
   quinzy:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: infra/frontend.Dockerfile
     image: quinzy:latest
     container_name: quinzy
     networks:
