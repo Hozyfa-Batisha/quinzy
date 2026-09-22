@@ -27,5 +27,16 @@ export default defineConfig(({ mode }) => {
       },
     },
     },
+    // Keep the browser calling the same relative `/api` URLs in development
+    // and production. Without this proxy, Vite receives the auth request and
+    // returns a 404 instead of forwarding it to Express.
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+        },
+      },
+    },
   };
 });
